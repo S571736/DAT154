@@ -18,3 +18,51 @@
   6. WinMain
   7. User32
   8. WndProc
+
+
+### Pointers, SDK Deci(?)
+**Compact C/C++ notations**
+
+````c++
+int tab[] = {0,1,2,3,5,8,-1}
+int* pi = tab;
+while({)*++pi != -1){
+    cout << *pi << ',';
+}
+cout << endl;
+````
+
+**Pointers and functions**
+````c++
+#include <iostream>
+using namespace std;
+
+void Double(int* pi)
+{
+    int tall = *pi;
+    tall = tall * 2;
+    *pi = tall;
+}
+
+int main()
+{
+int n;
+cout << "Enter n : ";
+cin >> n;
+Double(&n);
+cout << "n x 2 = : " << n << endl;
+}
+````
+
+**Dynamic variables** must always be deleted
+
+`````c++
+int main(){
+    X a("Hello");
+    X* pb= new X("World");
+    
+    a.Print();
+    pb -> Print();
+    delete pb;
+}
+````

@@ -1,0 +1,6 @@
+﻿  Assignment2.cpp
+  Car.cpp
+  Generating Code...
+Assignment2.obj : error LNK2019: unresolved external symbol "void __cdecl Rectangle(struct HDC__ * *,int,int,int,int,unsigned long)" (?Rectangle@@YAXPAPAUHDC__@@HHHHK@Z) referenced in function "void __cdecl TrafficLights(struct HDC__ * *)" (?TrafficLights@@YAXPAPAUHDC__@@@Z)
+Assignment2.obj : error LNK2019: unresolved external symbol "void __cdecl Circle(struct HDC__ * *,int,int,int,int,unsigned long)" (?Circle@@YAXPAPAUHDC__@@HHHHK@Z) referenced in function "void __cdecl TrafficLights(struct HDC__ * *)" (?TrafficLights@@YAXPAPAUHDC__@@@Z)
+C:\Users\Sondr\Documents\DAT154\Assignment2\Debug\Assignment2.exe : fatal error LNK1120: 2 unresolved externals
