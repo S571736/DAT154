@@ -27,7 +27,7 @@ void Circle(HDC*, int, int, int, int, COLORREF);
 void TrafficLights(HDC*);
 void Roads(HDC*);
 int lights = 0;
-int changeLights = 0;
+int lightTimer = 0;
 
 list<Car*> cars;
 list<Car*>::iterator CI;
@@ -138,6 +138,7 @@ BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 //
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
+    SetTimer(hWnd, 0, 1, (TIMERPROC)NULL);
     switch (message)
     {
     case WM_COMMAND:
@@ -161,14 +162,36 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         {
             PAINTSTRUCT ps;
             HDC hdc = BeginPaint(hWnd, &ps);
+            
+            Roads(&hdc); 
             TrafficLights(&hdc);
-
-
+            
             EndPaint(hWnd, &ps);
             break;
         }
         break;
+    case WM_LBUTTONDOWN:
+    {
+    /*
+        lights = (lights + 1) % 6;
+        InvalidateRect(hWnd, 0, true);
+      */  
+    }
+    break;
+    case WM_TIMER:
+    {
+        if (lightTimer == 1)
+        {
+            lights = (lights + 1) % 6;
+            InvalidateRect(hWnd, 0, true);
+        }
+        lightTimer = (lightTimer + 1) % 100;
+    }
+    break;
+    
     case WM_DESTROY:
+        KillTimer(hWnd, 0);
+        KillTimer(hWnd, 1);
         PostQuitMessage(0);
         break;
     default:
@@ -213,56 +236,121 @@ void Rectangle(HDC* hdc, int l, int t, int r, int b, COLORREF color) {
 void Circle(HDC* hdc, int l, int t, int r, int b, COLORREF color) {
     HBRUSH hBrush = CreateSolidBrush(color);
     HGDIOBJ hOrg = SelectObject(*hdc, hBrush);
-    Ellipse()
+    
+    Ellipse(*hdc, l, t, r, b);
     
     SelectObject(*hdc, hOrg);
     DeleteObject(hBrush);
 }
 
 void TrafficLights(HDC* hdc) {
-    static int x = 100, y = 150;
+    static int relation = 40;
+    static int l = 200, t = 120, r = 240, b = 160;
+    static int l1 = 200, t1 = 510, r1 = 240, b1 = 550;
     switch (lights) 
     {    
     case 0:
     {
         // Red light
-        
-        Rectangle(hdc, x-10, x-10, y+10, y+160, RGB(140, 140, 140));
-        Circle(hdc, x, x, y, y, RGB(255, 0, 0));
-        Circle(hdc, x, x + 75, y, y+75, RGB(0, 0, 0));
-        Circle(hdc, x, x + 150, y, y + 150, RGB(0,0,0));
+        Rectangle(hdc, l-10, t-10, r+10, b + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l, t, r, b, RGB(255, 0, 0));
+        Circle(hdc, l, t + relation, r, b + relation, RGB(128, 128, 128));
+        Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
+
+        // Green light
+        Rectangle(hdc, l1 - 10, t1 - 10, r1 + 10, b1 + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l1, t1, r1, b1, RGB(128, 128, 128));
+        Circle(hdc, l1, t1 + relation, r1, b1 + relation, RGB(128, 128, 128));
+        Circle(hdc, l1, t1 + relation * 2, r1, b1 + relation * 2, RGB(0, 255, 0));
     }
     break;
     case 1:
     {
-        // Red + Yellow light
-        Rectangle(hdc, x - 10, x - 10, y + 10, y + 160, RGB(140, 140, 140));
-        Circle(hdc, x, x, y, y, RGB(255, 0, 0));
-        Circle(hdc, x, x + 75, y, y + 75, RGB(255, 255, 0));
-        Circle(hdc, x, x + 150, y, y + 150, RGB(0, 0, 0));
+        // Red
+        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l, t, r, b, RGB(255, 0, 0));
+        Circle(hdc, l, t + relation, r, b + relation, RGB(128, 128, 128));
+        Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
+
+        // Yellow
+        Rectangle(hdc, l1 - 10, t1 - 10, r1 + 10, b1 + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l1, t1, r1, b1, RGB(128, 128, 128));
+        Circle(hdc, l1, t1 + relation, r1, b1 + relation, RGB(255, 255, 0));
+        Circle(hdc, l1, t1 + relation * 2, r1, b1 + relation * 2, RGB(128, 128, 128));
     }
     break;
     case 2: 
     {
-        // Green light
+        // Red + Yellow
 
-        Rectangle(hdc, x - 10, x - 10, y + 10, y + 160, RGB(140, 140, 140));
-        Circle(hdc, x, x, y, y, RGB(0, 0, 0));
-        Circle(hdc, x, x + 75, y, y + 75, RGB(0, 0, 0));
-        Circle(hdc, x, x + 150, y, y + 150, RGB(0, 255, 0));
+        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l, t, r, b, RGB(255, 0, 0));
+        Circle(hdc, l, t + relation, r, b + relation, RGB(255, 255, 0));
+        Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
+
+        
+        // Red light
+        Rectangle(hdc, l1 - 10, t1 - 10, r1 + 10, b1 + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l1, t1, r1, b1, RGB(255, 0, 0));
+        Circle(hdc, l1, t1 + relation, r1, b1 + relation, RGB(128, 128, 128));
+        Circle(hdc, l1, t1 + relation * 2, r1, b1 + relation * 2, RGB(128, 128, 128));
     }
     break;
     case 3:
     {
-        // Yellow light
-        Rectangle(hdc, x - 10, x - 10, y + 10, y + 160, RGB(140, 140, 140));
-        Circle(hdc, x, x, y, y, RGB(0, 0, 0));
-        Circle(hdc, x, x + 75, y, y + 75, RGB(255, 255, 0));
-        Circle(hdc, x, x + 150, y, y + 150, RGB(0, 0, 0));
+        // Green
+        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l, t, r, b, RGB(128, 128, 128));
+        Circle(hdc, l, t + relation, r, b + relation, RGB(128, 128, 128));
+        Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(0, 255, 0));
+
+        // Red light
+        Rectangle(hdc, l1 - 10, t1 - 10, r1 + 10, b1 + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l1, t1, r1, b1, RGB(255, 0, 0));
+        Circle(hdc, l1, t1 + relation, r1, b1 + relation, RGB(128, 128, 128));
+        Circle(hdc, l1, t1 + relation * 2, r1, b1 + relation * 2, RGB(128, 128, 128));
 
     }
     break;
+    case 4:
+    {
+        // Yellow
+        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l, t, r, b, RGB(128, 128, 128));
+        Circle(hdc, l, t + relation, r, b + relation, RGB(255, 255, 0));
+        Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
+
+        // Red
+        Rectangle(hdc, l1 - 10, t1 - 10, r1 + 10, b1 + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l1, t1, r1, b1, RGB(255, 0, 0));
+        Circle(hdc, l1, t1 + relation, r1, b1 + relation, RGB(128, 128, 128));
+        Circle(hdc, l1, t1 + relation * 2, r1, b1 + relation * 2, RGB(128, 128, 128));
+    }
+    break;
+    case 5:
+    {
+        // Red
+        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l, t, r, b, RGB(255, 0, 0));
+        Circle(hdc, l, t + relation, r, b + relation, RGB(128, 128, 128));
+        Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
+
+        // Red + Yellow
+        Rectangle(hdc, l1 - 10, t1 - 10, r1 + 10, b1 + relation * 2 + 10, RGB(0, 0, 0));
+        Circle(hdc, l1, t1, r1, b1, RGB(255, 0, 0));
+        Circle(hdc, l1, t1 + relation, r1, b1 + relation, RGB(255, 255, 0));
+        Circle(hdc, l1, t1 + relation * 2, r1, b1 + relation * 2, RGB(128, 128, 128));
+    }
     default:
         break;
     }
 }
+void Roads(HDC* hdc) {
+    Rectangle(hdc, 0, 300, 1920, 450, RGB(150, 150, 150)); // Left -> Right road
+    Rectangle(hdc, 300, 0, 450, 1080, RGB(150, 150, 150)); // Top -> Bottom road
+
+    Rectangle(hdc, 298, 300, 300, 450, RGB(255, 255, 255)); // White crossing line top -> bottom
+    Rectangle(hdc, 300, 298, 450, 300, RGB(255, 255, 255)); // White crossing line right -> left
+    Rectangle(hdc, 450, 300, 452, 450, RGB(255, 255, 255)); // White crossing line top -> bottom
+    Rectangle(hdc, 300, 450, 450, 452, RGB(255, 255, 255)); // White crossing line right -> left
+ }
