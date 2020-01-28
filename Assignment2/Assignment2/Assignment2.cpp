@@ -33,9 +33,9 @@ list<Car*> cars;
 list<Car*>::iterator CI;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
-                     _In_opt_ HINSTANCE hPrevInstance,
-                     _In_ LPWSTR    lpCmdLine,
-                     _In_ int       nCmdShow)
+    _In_opt_ HINSTANCE hPrevInstance,
+    _In_ LPWSTR    lpCmdLine,
+    _In_ int       nCmdShow)
 {
     UNREFERENCED_PARAMETER(hPrevInstance);
     UNREFERENCED_PARAMETER(lpCmdLine);
@@ -48,7 +48,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     MyRegisterClass(hInstance);
 
     // Perform application initialization:
-    if (!InitInstance (hInstance, nCmdShow))
+    if (!InitInstance(hInstance, nCmdShow))
     {
         return FALSE;
     }
@@ -67,7 +67,7 @@ int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
         }
     }
 
-    return (int) msg.wParam;
+    return (int)msg.wParam;
 }
 
 
@@ -83,17 +83,17 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 
     wcex.cbSize = sizeof(WNDCLASSEX);
 
-    wcex.style          = CS_HREDRAW | CS_VREDRAW;
-    wcex.lpfnWndProc    = WndProc;
-    wcex.cbClsExtra     = 0;
-    wcex.cbWndExtra     = 0;
-    wcex.hInstance      = hInstance;
-    wcex.hIcon          = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ASSIGNMENT2));
-    wcex.hCursor        = LoadCursor(nullptr, IDC_ARROW);
-    wcex.hbrBackground  = (HBRUSH)(COLOR_WINDOW+1);
-    wcex.lpszMenuName   = MAKEINTRESOURCEW(IDC_ASSIGNMENT2);
-    wcex.lpszClassName  = szWindowClass;
-    wcex.hIconSm        = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.style = CS_HREDRAW | CS_VREDRAW;
+    wcex.lpfnWndProc = WndProc;
+    wcex.cbClsExtra = 0;
+    wcex.cbWndExtra = 0;
+    wcex.hInstance = hInstance;
+    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_ASSIGNMENT2));
+    wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
+    wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
+    wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_ASSIGNMENT2);
+    wcex.lpszClassName = szWindowClass;
+    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
 
     return RegisterClassExW(&wcex);
 }
@@ -110,20 +110,20 @@ ATOM MyRegisterClass(HINSTANCE hInstance)
 //
 BOOL InitInstance(HINSTANCE hInstance, int nCmdShow)
 {
-   hInst = hInstance; // Store instance handle in our global variable
+    hInst = hInstance; // Store instance handle in our global variable
 
-   HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
-      CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
+    HWND hWnd = CreateWindowW(szWindowClass, szTitle, WS_OVERLAPPEDWINDOW,
+        CW_USEDEFAULT, 0, CW_USEDEFAULT, 0, nullptr, nullptr, hInstance, nullptr);
 
-   if (!hWnd)
-   {
-      return FALSE;
-   }
+    if (!hWnd)
+    {
+        return FALSE;
+    }
 
-   ShowWindow(hWnd, nCmdShow);
-   UpdateWindow(hWnd);
+    ShowWindow(hWnd, nCmdShow);
+    UpdateWindow(hWnd);
 
-   return TRUE;
+    return TRUE;
 }
 
 //
@@ -142,40 +142,40 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     switch (message)
     {
     case WM_COMMAND:
+    {
+        int wmId = LOWORD(wParam);
+        // Parse the menu selections:
+        switch (wmId)
         {
-            int wmId = LOWORD(wParam);
-            // Parse the menu selections:
-            switch (wmId)
-            {
-            case IDM_ABOUT:
-                DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
-                break;
-            case IDM_EXIT:
-                DestroyWindow(hWnd);
-                break;
-            default:
-                return DefWindowProc(hWnd, message, wParam, lParam);
-            }
-        }
-        break;
-    case WM_PAINT:
-        {
-            PAINTSTRUCT ps;
-            HDC hdc = BeginPaint(hWnd, &ps);
-            
-            Roads(&hdc); 
-            TrafficLights(&hdc);
-            
-            EndPaint(hWnd, &ps);
+        case IDM_ABOUT:
+            DialogBox(hInst, MAKEINTRESOURCE(IDD_ABOUTBOX), hWnd, About);
             break;
+        case IDM_EXIT:
+            DestroyWindow(hWnd);
+            break;
+        default:
+            return DefWindowProc(hWnd, message, wParam, lParam);
         }
+    }
+    break;
+    case WM_PAINT:
+    {
+        PAINTSTRUCT ps;
+        HDC hdc = BeginPaint(hWnd, &ps);
+
+        Roads(&hdc);
+        TrafficLights(&hdc);
+
+        EndPaint(hWnd, &ps);
         break;
+    }
+    break;
     case WM_LBUTTONDOWN:
     {
-    /*
-        lights = (lights + 1) % 6;
-        InvalidateRect(hWnd, 0, true);
-      */  
+        /*
+            lights = (lights + 1) % 6;
+            InvalidateRect(hWnd, 0, true);
+          */
     }
     break;
     case WM_TIMER:
@@ -188,7 +188,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         lightTimer = (lightTimer + 1) % 100;
     }
     break;
-    
+
     case WM_DESTROY:
         KillTimer(hWnd, 0);
         KillTimer(hWnd, 1);
@@ -236,9 +236,9 @@ void Rectangle(HDC* hdc, int l, int t, int r, int b, COLORREF color) {
 void Circle(HDC* hdc, int l, int t, int r, int b, COLORREF color) {
     HBRUSH hBrush = CreateSolidBrush(color);
     HGDIOBJ hOrg = SelectObject(*hdc, hBrush);
-    
+
     Ellipse(*hdc, l, t, r, b);
-    
+
     SelectObject(*hdc, hOrg);
     DeleteObject(hBrush);
 }
@@ -247,12 +247,12 @@ void TrafficLights(HDC* hdc) {
     static int relation = 40;
     static int l = 200, t = 120, r = 240, b = 160;
     static int l1 = 200, t1 = 510, r1 = 240, b1 = 550;
-    switch (lights) 
-    {    
+    switch (lights)
+    {
     case 0:
     {
         // Red light
-        Rectangle(hdc, l-10, t-10, r+10, b + relation * 2 + 10, RGB(0, 0, 0));
+        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0));
         Circle(hdc, l, t, r, b, RGB(255, 0, 0));
         Circle(hdc, l, t + relation, r, b + relation, RGB(128, 128, 128));
         Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
@@ -279,7 +279,7 @@ void TrafficLights(HDC* hdc) {
         Circle(hdc, l1, t1 + relation * 2, r1, b1 + relation * 2, RGB(128, 128, 128));
     }
     break;
-    case 2: 
+    case 2:
     {
         // Red + Yellow
 
@@ -288,7 +288,7 @@ void TrafficLights(HDC* hdc) {
         Circle(hdc, l, t + relation, r, b + relation, RGB(255, 255, 0));
         Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
 
-        
+
         // Red light
         Rectangle(hdc, l1 - 10, t1 - 10, r1 + 10, b1 + relation * 2 + 10, RGB(0, 0, 0));
         Circle(hdc, l1, t1, r1, b1, RGB(255, 0, 0));
@@ -353,4 +353,4 @@ void Roads(HDC* hdc) {
     Rectangle(hdc, 300, 298, 450, 300, RGB(255, 255, 255)); // White crossing line right -> left
     Rectangle(hdc, 450, 300, 452, 450, RGB(255, 255, 255)); // White crossing line top -> bottom
     Rectangle(hdc, 300, 450, 450, 452, RGB(255, 255, 255)); // White crossing line right -> left
- }
+}
