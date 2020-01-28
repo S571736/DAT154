@@ -1,7 +1,7 @@
 #include "Car.h"
 #include "Graphics.cpp"
 
-
+/*
 class Car 
 {
 private:
@@ -12,3 +12,4 @@ public:
 
 	
 };
+*/

@@ -4,6 +4,7 @@
 #include "framework.h"
 #include "Assignment2.h"
 #include "Car.cpp"
+#include "Graphics.cpp"
 #include <list>
 #include <stdlib.h>
 
@@ -244,15 +245,17 @@ void Circle(HDC* hdc, int l, int t, int r, int b, COLORREF color) {
 }
 
 void TrafficLights(HDC* hdc) {
+    Graphics gfx;
     static int relation = 40;
     static int l = 200, t = 120, r = 240, b = 160;
     static int l1 = 200, t1 = 510, r1 = 240, b1 = 550;
+    
     switch (lights)
     {
     case 0:
     {
         // Red light
-        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0));
+        gfx.Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0)); // Fjern eller finn løsning på gfx
         Circle(hdc, l, t, r, b, RGB(255, 0, 0));
         Circle(hdc, l, t + relation, r, b + relation, RGB(128, 128, 128));
         Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));

@@ -150,12 +150,14 @@
     <ClInclude Include="Assignment2.h" />
     <ClInclude Include="Car.h" />
     <ClInclude Include="framework.h" />
+    <ClInclude Include="Graphics.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Assignment2.cpp" />
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Graphics.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Assignment2.rc" />
