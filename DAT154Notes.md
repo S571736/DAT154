@@ -56,7 +56,7 @@ cout << "n x 2 = : " << n << endl;
 
 **Dynamic variables** must always be deleted
 
-`````c++
+````c++
 int main(){
     X a("Hello");
     X* pb= new X("World");
@@ -66,3 +66,107 @@ int main(){
     delete pb;
 }
 ````
+### C#
+
+````C#
+class HelloWorld{
+    public static void main(){
+        System.Console.WriteLine("Hello World");
+    }
+}
+````
+### Compile
+````
+csc /target:exe helloworld.cs
+````
+
+### .NET components
+* Common language runtime(CLR)
+  * Kernel, Required to run CIL code
+* Framework class library(FCL)
+  * Contains 6000+ classes for use in .NET library(replaces API calls)
+* Compilers
+  * Create assemblies containing CIL to run on the CLR
+  
+### Namespaces
+* A namespace is a way to organize .NET classes
+* A namespace groups together classes with similar functions
+* A namespace also makes it easier to avoid duplicate class names
+* All the classes in the FCL are divided into namespaces based on their functionality
+* A class is identified by both its namespace and actual name
+* When we use a class, we need to tell the compiler both the namespace and the name of the class
+* Examples:
+  * ``System.Console.WriteLine("Hello World);``
+  * ``Library.Book book = new Library.Book("Title");``
+  
+#### Namespaces - Importing
+* For  commonly used namespaces, we can import the namespace by using the using directive
+* Example:
+````c#
+using System;
+class CelloWorld {
+    public static void Main(){
+        Console.WriteLine("Cello World");
+    }
+}
+````
+#### Namespaces - creating
+* A namespace is created by wrapping our class(es) in a namespace block
+
+#### Namespaces - nesting
+* Namespaces can be nested
+* The using keyword does not provide access to namespaces nested below the specified level
+  
+#### Namespaces - aliases
+* One can use aliases to provide a simplified name for a class or namespace
+````c#
+using s = System; // Namespace alias
+using c = System.Console; // Class alias
+
+s::Console.WriteLine();
+c.WriteLine();
+````
+
+### References
+* References points to external libraries
+* By default, not everything is referenced from a project.
+* Might need to set up a reference to access a given namespace.
+* References can be browsed in the object browser in VS
+
+### Managed Code
+* Managed code is code that targets the CLR
+* Code that does not target the CLR(old DLL's...) is unmanaged code
+* Managed code is handled by the CLR, that provides
+  * Security checks
+  * Memory Management/Garbage Collection
+  * Access to managed data
+
+### Assemblies
+* An assembly is a .NET library or executable with the following properties:
+  * Contains IL code which is compiled .NET source for example C# or VB.NET
+  * Contains metadata which describes the interface.
+  
+### Libraries
+
+### Value Types vs Reference types
+* .NET has two kind of types
+  * Value Types
+  * Reference types
+  
+### Reference types
+* Reference types are stored on the heap
+* A pointer to the memory location occupied by the type is store on the stack
+
+
+### Value types
+* A value type does not point to the heap, it kepps its value on the stack*
+* When assigned to a new variable, the content is copied
+* Still behaves as an Object, and has methods
+* Implicit inheretance from System.ValueType
+  
+### Boxing
+* Boxing is the process that happens then a Value Type is encapsulated in a Reference Type, and placed on the stack
+* This creates a new copy of the value type
+* Using a non-generics data structudre causes all Value Types to be boxed(And needs to be unboxed upon retrieval)
+* Boxing is a resource intensive
+* When using a data structure that supports generics, Boxing does not take place

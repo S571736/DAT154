@@ -4,7 +4,7 @@
 #include "framework.h"
 #include "Assignment2.h"
 #include "Car.cpp"
-#include "Graphics.cpp"
+//#include "Graphics.cpp"
 #include <list>
 #include <stdlib.h>
 
@@ -181,7 +181,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     break;
     case WM_TIMER:
     {
-        if (lightTimer == 1)
+        if (lightTimer == 99)
         {
             lights = (lights + 1) % 6;
             InvalidateRect(hWnd, 0, true);
@@ -255,7 +255,7 @@ void TrafficLights(HDC* hdc) {
     case 0:
     {
         // Red light
-        gfx.Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0)); // Fjern eller finn løsning på gfx
+        Rectangle(hdc, l - 10, t - 10, r + 10, b + relation * 2 + 10, RGB(0, 0, 0)); // Fjern eller finn løsning på gfx
         Circle(hdc, l, t, r, b, RGB(255, 0, 0));
         Circle(hdc, l, t + relation, r, b + relation, RGB(128, 128, 128));
         Circle(hdc, l, t + relation * 2, r, b + relation * 2, RGB(128, 128, 128));
