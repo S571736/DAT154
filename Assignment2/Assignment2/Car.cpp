@@ -9,19 +9,20 @@ private:
 	bool South;
 
 public:
-	Car(int x_p, int y_p, bool South) {
+	Car(int x_p, int y_p, bool SouthIn) {
 		x = x_p;
 		y = y_p;
-		South = South;
+		South = SouthIn;
 	}
 	void Move() {
 		if (South) {
 			y++;
-		}else {
+		}
+		else {
 			x++;	
 		}
 	}
-	bool GetDirection() {
+	bool getSouth() {
 		return South;
 	}
 	int getX() {

@@ -30,6 +30,8 @@ void Roads(HDC*);
 void Cars(HDC*);
 int lights = 0;
 int lightTimer = 0;
+int pw;
+int pn;
 
 list<Car> cars;
 list<Car>::iterator CI;
@@ -174,11 +176,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
         break;
     }
     break;
-    case WM_LBUTTONDOWN:
-    {
-        cars.push_front(Car(0, rand() % 140 + 300, false));
-    }
-    break;
     case WM_TIMER:
     {
         if (lightTimer == 99)
@@ -186,11 +183,87 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             lights = (lights + 1) % 6;
             InvalidateRect(hWnd, 0, true);
         }
+
+        int i = rand() % 100;
+        if (i > 100 - pw) {
+            cars.push_front(Car(0, rand() % 130 + 300, false));
+        }
+        if (i > 100 - pn)
+        {
+            cars.push_front(Car(rand() % 130 + 300, 0, true));
+        }
+
+        for (CI = cars.begin(); CI != cars.end(); ++CI) {
+            // Slett biler
+            if (CI->getX() == 1920 || CI->getY() == 1080) {
+                cars.erase(CI);
+                break;
+            }
+
+            auto CI2 = CI;
+            CI2++;
+
+            if (CI->getSouth()) {
+                auto next = std::find_if(CI2, cars.end(), [](auto& c) {return c.getSouth();});
+                //Kjører ikkje på bilen foran
+                if (next != cars.end() && CI->getSouth()) {
+                    if (CI->getY() + 35 >= next->getY())
+                    {
+                        continue;
+                    }
+                }
+                //Kjører på grønt lys
+                if (lights == 4 || lights == 3)
+                {
+                    CI->Move();
+                    InvalidateRect(hWnd, 0, true);
+                }
+                else {
+                    //Stopper når bilen kommer til streken
+                    if (CI->getY() <= 290 || CI->getY() >= 310) {
+                        CI->Move();
+                        InvalidateRect(hWnd, 0, true);
+                    }
+                }
+            }
+            else
+            {
+                auto next = std::find_if(CI2, cars.end(), [](auto& c) {return !c.getSouth(); });
+                //Kjører ikkje på bilen foran
+                if (next != cars.end() && !CI->getSouth()) {
+                    if (CI->getX() + 35 >= next->getX())
+                    {
+                        continue;
+                    }
+                }
+                //Kjører på grønt lys
+                if (lights == 1 || lights == 0)
+                {
+                    CI->Move();
+                    InvalidateRect(hWnd, 0, true);
+                }
+                else {
+                    //Stopper når bilen kommer til streken
+                    if (CI->getX() <= 290 || CI->getX() >= 310) {
+                        CI->Move();
+                        InvalidateRect(hWnd, 0, true);
+                    }
+                }
+            }
+            // Få biler til å kjøre
+            // Få Biler til å stoppe på rødt lys
+        }
+        
         lightTimer = (lightTimer + 1) % 100;
-        cars.begin->Move();
     }
     break;
+    case WM_KEYDOWN:
+    {
+        switch (lParam)
+        {
 
+        }
+    }
     case WM_DESTROY:
         KillTimer(hWnd, 0);
         KillTimer(hWnd, 1);
@@ -361,6 +434,6 @@ void Roads(HDC* hdc) {
 
 void Cars(HDC* hdc) {
     for (CI = cars.begin(); CI != cars.end(); ++CI) {
-        Rectangle(hdc, CI->getX(), CI->getY(), CI->getX() + 10, CI->getY() + 10, RGB(0,255,0));
+        Rectangle(hdc, CI->getX(), CI->getY(), CI->getX() + 30, CI->getY() + 30, RGB(0,255,0));
     }
 }
