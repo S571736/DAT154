@@ -27,11 +27,12 @@ void Rectangle(HDC*, int, int, int, int, COLORREF);
 void Circle(HDC*, int, int, int, int, COLORREF);
 void TrafficLights(HDC*);
 void Roads(HDC*);
+void Cars(HDC*);
 int lights = 0;
 int lightTimer = 0;
 
-list<Car*> cars;
-list<Car*>::iterator CI;
+list<Car> cars;
+list<Car>::iterator CI;
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInstance,
     _In_opt_ HINSTANCE hPrevInstance,
@@ -166,6 +167,8 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
         Roads(&hdc);
         TrafficLights(&hdc);
+        Cars(&hdc);
+
 
         EndPaint(hWnd, &ps);
         break;
@@ -173,10 +176,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     break;
     case WM_LBUTTONDOWN:
     {
-        /*
-            lights = (lights + 1) % 6;
-            InvalidateRect(hWnd, 0, true);
-          */
+        cars.push_front(Car(0, rand() % 140 + 300, false));
     }
     break;
     case WM_TIMER:
@@ -187,6 +187,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
             InvalidateRect(hWnd, 0, true);
         }
         lightTimer = (lightTimer + 1) % 100;
+        cars.begin->Move();
     }
     break;
 
@@ -245,7 +246,7 @@ void Circle(HDC* hdc, int l, int t, int r, int b, COLORREF color) {
 }
 
 void TrafficLights(HDC* hdc) {
-    Graphics gfx;
+    //Graphics gfx;
     static int relation = 40;
     static int l = 200, t = 120, r = 240, b = 160;
     static int l1 = 200, t1 = 510, r1 = 240, b1 = 550;
@@ -356,4 +357,10 @@ void Roads(HDC* hdc) {
     Rectangle(hdc, 300, 298, 450, 300, RGB(255, 255, 255)); // White crossing line right -> left
     Rectangle(hdc, 450, 300, 452, 450, RGB(255, 255, 255)); // White crossing line top -> bottom
     Rectangle(hdc, 300, 450, 450, 452, RGB(255, 255, 255)); // White crossing line right -> left
+}
+
+void Cars(HDC* hdc) {
+    for (CI = cars.begin(); CI != cars.end(); ++CI) {
+        Rectangle(hdc, CI->getX(), CI->getY(), CI->getX() + 10, CI->getY() + 10, RGB(0,255,0));
+    }
 }

@@ -1,3 +1,2 @@
 ﻿  Assignment2.cpp
-C:\Users\Sondr\Documents\DAT154\Assignment2\Assignment2\Assignment2.cpp(248,14): warning C4101: 'gfx': unreferenced local variable
-  Assignment2.vcxproj -> C:\Users\Sondr\Documents\DAT154\Assignment2\Debug\Assignment2.exe
+C:\Users\Sondr\Documents\DAT154\Assignment2\Assignment2\Assignment2.cpp(190,25): error C2227: left of '->Move' must point to class/struct/union/generic type
