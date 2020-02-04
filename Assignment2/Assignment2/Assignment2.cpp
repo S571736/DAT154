@@ -31,9 +31,10 @@ void Roads(HDC*);
 void Cars(HDC*);
 int lights = 0;
 int lightTimer = 0;
-int pw = 50;
-int pn = 50;
+int pw = 0;
+int pn = 0;
 int prob;
+bool invalidate = false;
 
 
 list<Car> cars;
@@ -180,21 +181,24 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	break;
 	case WM_TIMER:
 	{
+
+		invalidate = false;
 		if (lightTimer == 99)
 		{
 			lights = (lights + 1) % 6;
-			InvalidateRect(hWnd, 0, false);
+			invalidate = true;
+			//InvalidateRect(hWnd, 0, false);
 		}
 
 		int prob = rand() % 100;
 
-		if (prob > 100 - 2) { // pw
+		if (prob > 100 - pw) { // pw
 
-			cars.push_front(Car(-50, rand() % 130 + 300, false));
+			cars.push_front(Car(-50, rand() % 100 + 300, false));
 		}
-		if (prob > 100 - 2) //pn
+		if (prob > 100 - pn) //pn
 		{
-			cars.push_front(Car(rand() % 130 + 300, -50, true));
+			cars.push_front(Car(rand() % 100 + 300, -50, true));
 		}
 
 		for (CI = cars.begin(); CI != cars.end(); ++CI) {
@@ -220,13 +224,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				if (lights == 4 || lights == 3)
 				{
 					CI->Move();
-					InvalidateRect(hWnd, 0, false);
+					invalidate = true;
+					//InvalidateRect(hWnd, 0, false);
 				}
 				else {
 					//Stopper når bilen kommer til streken
 					if (CI->getY() <= 260 || CI->getY() >= 310) {
 						CI->Move();
-						InvalidateRect(hWnd, 0, false);
+						invalidate = true;
+						//InvalidateRect(hWnd, 0, false);
 					}
 				}
 			}
@@ -244,13 +250,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 				if (lights == 1 || lights == 0)
 				{
 					CI->Move();
-					InvalidateRect(hWnd, 0, false);
+					invalidate = true;
+					//InvalidateRect(hWnd, 0, false);
 				}
 				else {
 					//Stopper når bilen kommer til streken
-					if (CI->getX() <= 260 || CI->getX() >= 305) {
+					if (CI->getX() <= 260 || CI->getX() >= 290) {
 						CI->Move();
-						InvalidateRect(hWnd, 0, false);
+						invalidate = true;
+						//InvalidateRect(hWnd, 0, false);
 					}
 				}
 			}
@@ -259,6 +267,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		}
 
 		lightTimer = (lightTimer + 1) % 200;
+		if (invalidate)
+		{
+			InvalidateRect(hWnd, 0, false);
+		}
 	}
 	break;
 	case WM_KEYDOWN:
