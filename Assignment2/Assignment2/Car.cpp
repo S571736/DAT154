@@ -16,10 +16,10 @@ public:
 	}
 	void Move() {
 		if (South) {
-			y++;
+			y += 5;
 		}
 		else {
-			x++;	
+			x += 5;	
 		}
 	}
 	bool getSouth() {
