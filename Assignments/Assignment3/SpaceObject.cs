@@ -4,10 +4,12 @@ namespace SpaceSim
 {
     public class SpaceObject
     {
-        protected String name;
-        public SpaceObject(String _name)
+        protected String name; // Name of object
+        protected int radius; // Radius of object
+        public SpaceObject(String _name, int _radius)
         {
             name = _name;
+            radius = _radius;
         }
         public virtual void Draw()
         {
@@ -18,10 +20,9 @@ namespace SpaceSim
 
     public class Star : SpaceObject
     {
-        protected int radius;
-        protected int rotPeriod;
-        protected String color;
-        public Star(String _name, int _radius, int _rotPeriod, String _color) : base(_name)
+        protected int rotPeriod; // Rotational period (length of day)
+        protected String color; // Color of object
+        public Star(String _name, int _radius, int _rotPeriod, String _color) : base(_name, _radius)
         {
             radius = _radius;
             rotPeriod = _rotPeriod;
@@ -36,8 +37,8 @@ namespace SpaceSim
 
     public class Planet : Sun
     {
-        protected SpaceObject orbiting;
-        protected int orbPeriod;
+        protected SpaceObject orbiting; // What object this object is orbiting
+        protected int orbPeriod; // Orbital period (Length of year)
         public Planet(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod) : base(_name, _radius, _rotPeriod, _color)
         {
             orbiting = _orbiting;
@@ -70,9 +71,13 @@ namespace SpaceSim
         }
     }
 
-    public class Asteroid : Sun
+    public class Asteroid : Planet
     {
-        public Asteroid(String _name) : base(_name) { }
+        protected int number; // Asteroids are identified with a number before their name
+        public Asteroid(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod, int _number) : base(_name, _radius, _rotPeriod, _color, _orbiting, _orbPeriod)
+        {
+            number = _number;
+        }
         public override void Draw()
         {
             Console.Write("Asteroid: ");
