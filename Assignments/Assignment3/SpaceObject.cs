@@ -18,7 +18,15 @@ namespace SpaceSim
 
     public class Star : SpaceObject
     {
-        public Star(String _name) : base(_name) { }
+        protected int radius;
+        protected int rotPeriod;
+        protected String color;
+        public Star(String _name, int _radius, int _rotPeriod, String _color) : base(_name)
+        {
+            radius = _radius;
+            rotPeriod = _rotPeriod;
+            color = _color;
+        }
         public override void Draw()
         {
             Console.Write("Star : ");
@@ -28,7 +36,13 @@ namespace SpaceSim
 
     public class Planet : Sun
     {
-        public Planet(String _name) : base(_name) { }
+        protected SpaceObject orbiting;
+        protected int orbPeriod;
+        public Planet(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod) : base(_name, _radius, _rotPeriod, _color)
+        {
+            orbiting = _orbiting;
+            orbPeriod = _orbPeriod;
+        }
         public override void Draw()
         {
             Console.Write("Planet: ");
@@ -38,7 +52,7 @@ namespace SpaceSim
 
     public class Moon : Planet
     {
-        public Moon(String _name) : base(_name) { }
+        public Moon(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod) : base(_name, _radius, _rotPeriod, _color, _orbiting, _orbPeriod) { }
         public override void Draw()
         {
             Console.Write("Moon: ");
@@ -48,7 +62,7 @@ namespace SpaceSim
 
     public class Comet : SpaceObject
     {
-        public Comet(String _name) : base(_name){}
+        public Comet(String _name, int _radius, int _rotPeriod, String _color) : base(_name, _radius, _rotPeriod, _color) { }
         public override void Draw()
         {
             Console.Write("Comet: ");
@@ -58,7 +72,7 @@ namespace SpaceSim
 
     public class Asteroid : Sun
     {
-        public Asteroid(String _name) : base(_name){}
+        public Asteroid(String _name) : base(_name) { }
         public override void Draw()
         {
             Console.Write("Asteroid: ");
@@ -68,8 +82,9 @@ namespace SpaceSim
 
     public class AsteroidBelt : Sun
     {
-        public AsteroidBelt(String _name) : base(_name){}
-        public override void Draw(){
+        public AsteroidBelt(String _name) : base(_name) { }
+        public override void Draw()
+        {
             Console.Write("Asteroid belt: ");
             base.Draw();
         }
@@ -77,9 +92,10 @@ namespace SpaceSim
 
     public class DwarfPlanet : SpaceObject
     {
-        public DwarfPlanet(String _name) : base(_name){}
+        public DwarfPlanet(String _name) : base(_name) { }
 
-        public override void Draw(){
+        public override void Draw()
+        {
             Console.Write("Dwarf planet: ");
             base.Draw();
         }
