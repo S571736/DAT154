@@ -22,11 +22,13 @@ namespace SpaceSim
     {
         protected int rotPeriod; // Rotational period (length of day)
         protected String color; // Color of object
-        public Star(String _name, int _radius, int _rotPeriod, String _color) : base(_name, _radius)
+        protected List<SpaceObject> satellite;
+        public Star(String _name, int _radius, int _rotPeriod, String _color, List<SpaceObject> _satellite) : base(_name, _radius)
         {
             radius = _radius;
             rotPeriod = _rotPeriod;
             color = _color;
+            satellite = _satellite;
         }
         public override void Draw()
         {
@@ -39,7 +41,7 @@ namespace SpaceSim
     {
         protected SpaceObject orbiting; // What object this object is orbiting
         protected int orbPeriod; // Orbital period (Length of year)
-        public Planet(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod) : base(_name, _radius, _rotPeriod, _color)
+        public Planet(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod, List<SpaceObject> _satellite) : base(_name, _radius, _rotPeriod, _color, _satellite)
         {
             orbiting = _orbiting;
             orbPeriod = _orbPeriod;
@@ -53,7 +55,7 @@ namespace SpaceSim
 
     public class Moon : Planet
     {
-        public Moon(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod) : base(_name, _radius, _rotPeriod, _color, _orbiting, _orbPeriod) { }
+        public Moon(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod, List<SpaceObject> _satellite) : base(_name, _radius, _rotPeriod, _color, _orbiting, _orbPeriod, _satellite) { }
         public override void Draw()
         {
             Console.Write("Moon: ");
@@ -74,7 +76,7 @@ namespace SpaceSim
     public class Asteroid : Planet
     {
         protected int number; // Asteroids are identified with a number before their name
-        public Asteroid(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod, int _number) : base(_name, _radius, _rotPeriod, _color, _orbiting, _orbPeriod)
+        public Asteroid(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod, int _number, List<SpaceObject> _satellite) : base(_name, _radius, _rotPeriod, _color, _orbiting, _orbPeriod, _satellite)
         {
             number = _number;
         }
@@ -87,7 +89,7 @@ namespace SpaceSim
 
     public class AsteroidBelt : Sun
     {
-        public AsteroidBelt(String _name) : base(_name) { }
+        public AsteroidBelt(String _name, List<SpaceObject> _satellite) : base(_name, _satellite) { }
         public override void Draw()
         {
             Console.Write("Asteroid belt: ");
@@ -95,9 +97,9 @@ namespace SpaceSim
         }
     }
 
-    public class DwarfPlanet : SpaceObject
+    public class DwarfPlanet : Planet
     {
-        public DwarfPlanet(String _name) : base(_name) { }
+        public DwarfPlanet(String _name, int _radius, int _rotPeriod, String _color, SpaceObject _orbiting, int _orbPeriod, List<SpaceObject> _satellite) : base(_name, _radius, _rotPeriod, _color, _orbiting, _orbPeriod, _satellite) { }
 
         public override void Draw()
         {
