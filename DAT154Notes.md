@@ -170,3 +170,28 @@ c.WriteLine();
 * Using a non-generics data structudre causes all Value Types to be boxed(And needs to be unboxed upon retrieval)
 * Boxing is a resource intensive
 * When using a data structure that supports generics, Boxing does not take place
+
+### REP: Common intermediate Language
+* Visual Studio does not let us mix different languages in the same VS project
+* But it is possible to create different projects inside a solution, where each project uses its own language
+* It is also possible to manually assemble the .NET modules into .NET assemblies
+* All .NET code no matter the language are compile to CIL code
+* Possible to use several different .NET languages in the same project
+* One language can use or subclass classes written in another language
+* One language can throw an exception that is caught in another language
+
+### Subclasses
+* As seem subclasses across languages
+* This is written the exact same way as you would extend a native class
+* Just remember to import the required namespaces(There might be implicit namespaces in the foreign language)
+  
+### Compiling
+* Normally, when code is compiled with a .NET compiler, we get a standalone assembly, which contains
+  * Metadata
+  * Executable CIL code
+* Linking, as known from C++ is normally no longer done manually, but done automatically at runtime.
+
+### Demo - IL code similarity
+* IL code output will be similar for similar code, no matter the original language
+* Differences are due to compiler handling
+* Note that some languages might lack some features, so writing identical code in two languages might not always be possible
