@@ -195,3 +195,27 @@ c.WriteLine();
 * IL code output will be similar for similar code, no matter the original language
 * Differences are due to compiler handling
 * Note that some languages might lack some features, so writing identical code in two languages might not always be possible
+
+### What is software architecture
+* Create a design that ensures 
+  * Usability
+    * Business requirements
+    * Performance
+  * Stability
+  * Maintainability
+    * Bug fixing
+    * Changing requirements
+  * Security
+* Three participants
+  * User
+  * Business
+  * System
+* Conflicts
+  * Tradeoffs
+* Must identify and consider key scenarios and quality attributes
+
+### Key Architecture Principles
+* Build to change instead of build to last
+* Model to analyze and reduce risk
+* Use models and visualizations as a communication and collaboration tool
+* Identify key engineering decisions

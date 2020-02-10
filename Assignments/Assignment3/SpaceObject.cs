@@ -1,5 +1,7 @@
 using System;
-
+/*
+Use coordinates of circle to find out coordinates of planets and moons in orbit
+*/
 namespace SpaceSim
 {
     public class SpaceObject
