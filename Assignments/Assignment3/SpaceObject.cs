@@ -8,10 +8,14 @@ namespace SpaceSim
     {
         protected String name; // Name of object
         protected int radius; // Radius of object
-        public SpaceObject(String _name, int _radius)
+        protected int x; // X coordinates
+        protected int y; // Y coordinates
+        public SpaceObject(String _name, int _radius, int _x, int _y)
         {
             name = _name;
             radius = _radius;
+            x = _x;
+            y = _y; 
         }
         public virtual void Draw()
         {
@@ -25,12 +29,14 @@ namespace SpaceSim
         protected int rotPeriod; // Rotational period (length of day)
         protected String color; // Color of object
         protected List<SpaceObject> satellite;
-        public Star(String _name, int _radius, int _rotPeriod, String _color, List<SpaceObject> _satellite) : base(_name, _radius)
+        public Star(String _name, int _radius, int _rotPeriod, String _color, List<SpaceObject> _satellite) : base(_name, _radius, _x, _y)
         {
             radius = _radius;
             rotPeriod = _rotPeriod;
             color = _color;
             satellite = _satellite;
+            x = 0;
+            y = 0;
         }
         public override void Draw()
         {

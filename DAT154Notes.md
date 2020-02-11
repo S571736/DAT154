@@ -219,3 +219,14 @@ c.WriteLine();
 * Model to analyze and reduce risk
 * Use models and visualizations as a communication and collaboration tool
 * Identify key engineering decisions
+
+### Delegate
+* A delegate is a list of function pointers
+* When called, a delegate will call all the function pointers it contains
+* A delegate can be used to control program flow dynamically, since pointers can be added or removed at runtime
+* Allows for a clear separation of modules, the owner of the delegate does not need to know about or depend upon the modules subscribing to the delegate
+  
+### Patterns
+* A pattern is a predefined solution to a common problem
+* Patterns are found in all areas of creativity - Architecture, electronics, crafts, software design, software architecture
+* Documented and published
