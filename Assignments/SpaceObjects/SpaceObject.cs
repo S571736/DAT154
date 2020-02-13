@@ -1,6 +1,8 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 /*
 Use coordinates of circle to find out coordinates of planets and moons in orbit
 */
@@ -41,6 +43,7 @@ namespace SpaceSim
             color = _color;
             x = 0;
             y = 0;
+            satellite = new List<SpaceObject>();
         }
         public override void Draw()
         {
@@ -56,8 +59,6 @@ namespace SpaceSim
                     Console.WriteLine("   *" + item.name);
                 }
             }
-            
-            Console.WriteLine("No satellites");
         }
     }
 
@@ -67,7 +68,6 @@ namespace SpaceSim
         public int orbPeriod; // Orbital period (Length of year) TODO: Implement
         public int orbRadius { get; protected set; } // Radius of orbit
         public int orbSpeed { get; protected set; } // Speed of orbit
-        public new List<SpaceObject> satellite { get; set; }
 
         public Planet(String _name, int _radius, int _rotPeriod, String _color, int _orbRadius, int _orbPeriod, SpaceObject _orbiting) : base(_name, _radius, _rotPeriod, _color)
         {
@@ -77,6 +77,7 @@ namespace SpaceSim
             x = _orbRadius;
             y = 0;
             orbSpeed = OSC / orbPeriod;
+            satellite = new List<SpaceObject>();
 
         }
 
@@ -102,7 +103,7 @@ namespace SpaceSim
 
     public class Moon : Planet
     {
-        public new List<SpaceObject> satellite { get; set; }
+        
         public Moon(String _name,
         int _radius,
         int _rotPeriod,
@@ -122,7 +123,7 @@ namespace SpaceSim
         public override void Draw()
         {
             Console.Write("Moon: " + name);
-
+            satellite = new List<SpaceObject>();
         }
     }
     /*
@@ -177,7 +178,6 @@ namespace SpaceSim
     */
     public class DwarfPlanet : Planet
     {
-        public new List<SpaceObject> satellite { get; set; }
         public DwarfPlanet(String _name,
         int _radius,
         int _rotPeriod,
@@ -192,7 +192,9 @@ namespace SpaceSim
         _orbRadius,
         _orbPeriod,
         _orbiting)
-        {}
+        {
+            satellite = new List<SpaceObject>();
+        }
 
         public override void Draw()
         {

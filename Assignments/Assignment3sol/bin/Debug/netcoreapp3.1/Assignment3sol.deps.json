@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v3.1",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v3.1": {
+      "Assignment3sol/1.0.0": {
+        "dependencies": {
+          "SpaceObject": "1.0.0"
+        },
+        "runtime": {
+          "Assignment3sol.dll": {}
+        }
+      },
+      "SpaceObject/1.0.0": {
+        "runtime": {
+          "SpaceObjects.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "Assignment3sol/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "SpaceObject/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

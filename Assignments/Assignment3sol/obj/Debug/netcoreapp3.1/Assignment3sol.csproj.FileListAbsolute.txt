@@ -1,0 +1,14 @@
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.exe
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.deps.json
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.runtimeconfig.json
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.runtimeconfig.dev.json
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.dll
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.pdb
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\SpaceObjects.dll
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\SpaceObjects.pdb
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.csprojAssemblyReference.cache
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.AssemblyInfoInputs.cache
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.AssemblyInfo.cs
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.csproj.CopyComplete
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.dll
+C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.pdb

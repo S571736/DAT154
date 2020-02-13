@@ -1,0 +1,5 @@
+C:\Users\Sondr\Documents\DAT154\Assignments\SpaceObjects\bin\Debug\SpaceObjects.dll
+C:\Users\Sondr\Documents\DAT154\Assignments\SpaceObjects\bin\Debug\SpaceObjects.pdb
+C:\Users\Sondr\Documents\DAT154\Assignments\SpaceObjects\obj\Debug\SpaceObject.csprojAssemblyReference.cache
+C:\Users\Sondr\Documents\DAT154\Assignments\SpaceObjects\obj\Debug\SpaceObjects.dll
+C:\Users\Sondr\Documents\DAT154\Assignments\SpaceObjects\obj\Debug\SpaceObjects.pdb

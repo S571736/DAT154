@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using SpaceSim;
@@ -124,14 +124,14 @@ class Astronomy
                 {
                     s.satellite.Add(m);
                 }
-            }   
+            }
         }
 
-        jupiter.Draw();
+        //jupiter.Draw();
 
-        //String planet = Console.ReadLine();
-        //int simple = 0;
-        /*
+        String planet = Console.ReadLine();
+        int simple = 0;
+        
         foreach(SpaceObject o in allPlanets)
         {
             if(o.name == planet){
@@ -143,10 +143,6 @@ class Astronomy
         if(simple == 0){
             Sun.Draw();
         }
-        */
-
-
-
         /*
         foreach (SpaceObject obj in solarSystem)
         {
