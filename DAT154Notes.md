@@ -349,3 +349,9 @@ namespace IEnumerable
 * To use LINQ we must include the System.Linq namespace
 * This adds appropriate extension methods to all classes implementing the IEnumerable interface
 * These extension methods provides functionality for running queries on the collection object
+* Some important methods:
+  * Select
+  * Where 
+  * OrderBy
+  * GroupBy
+  * Join
