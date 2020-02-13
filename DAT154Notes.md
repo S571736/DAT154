@@ -230,3 +230,122 @@ c.WriteLine();
 * A pattern is a predefined solution to a common problem
 * Patterns are found in all areas of creativity - Architecture, electronics, crafts, software design, software architecture
 * Documented and published
+  
+### Architectural Patterns
+* Also referred to as Architectural Styles
+* Provides an abstract framework
+* ...
+  
+### Client/Server
+* Distributed system
+  * Both the client and the server holds part of the applivation
+* Clients are typically concerned about UI, while the server takes care of the business logic
+* Clients make requests, server fulfills them
+* Multiple clients may use one server
+
+### Scenarios
+* Web application
+* Mail/messaging systems
+* Collaboration software
+* Banking system
+* Remote database access
+  * Always?
+
+### Advantages
+* Security
+* Centralization data access
+* Ease of maintenance
+
+### Disadvantages
+* Scalability
+* Stability 
+
+### What is LinQ?
+* Language Integrateed Query
+* LinQ is a Query language designed to query in memory data, databases, XML and other data sources
+* Similar to SQL
+* Works with all data structures implementing he IEnumerable interface
+
+````c#
+public class test
+{
+
+
+  static void Main(string[] args)
+  {
+
+    List<String> ls = new List<String>()
+    {
+      "Bob",
+      "Alice",
+      "Oscar",
+      "Mike"
+    };
+    foreach(var x in ls.OrderBy(x=> x))
+    {
+      Console.WriteLine(x);
+    }
+
+    Console.ReadKey();
+  }
+}
+````
+
+### IEnumerable
+* A collection class implementing this interface can be iterated over with a foreach statement, as well as queried by something
+* GetEnumerator uses the ``yield`` keyword to return elements one by one
+* Normally done inside a loop
+* Looks like a return statement, but does not end the method on invocation
+
+````c#
+namespace IEnumerable
+{
+  public class SimpleCollector<T> : IEnumerable<T> // Vil automatisk lage noen metoder, kopierer de fra forelesning som har noe å si
+  {
+    private list<T> data = new List<T>();
+
+    public void Add(T item)
+    {
+      data.Add(item);  
+    }
+
+    public T Get(T index)
+    {
+      return data.ElementAt(index);
+    }
+
+    public IEnumerator<T> GetEnumerator()
+    {
+      foreach(T x in data)
+      {
+        yield return x;
+      }
+    }
+  }
+
+  class Program
+  {
+    static void Main(string[] args)
+    {
+      SimpleCollection<string> sc = new SimpleCollection<string>();
+
+      sc.Add("Hei");
+      sc.Add("Hello");
+
+      foreach(string s in sc)
+      {
+        Console.WriteLine(s); // Will cause errors due to SimpleCollection list being private
+      }
+
+      Console.ReadKey();
+
+
+    }
+  }
+}
+````
+
+### Using LINQ
+* To use LINQ we must include the System.Linq namespace
+* This adds appropriate extension methods to all classes implementing the IEnumerable interface
+* These extension methods provides functionality for running queries on the collection object
