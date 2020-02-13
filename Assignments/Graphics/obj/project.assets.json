@@ -31,11 +31,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Skole\\DAT154\\Assignments\\Assignment3sol\\Assignment3sol.csproj",
-      "projectName": "Assignment3sol",
-      "projectPath": "D:\\Skole\\DAT154\\Assignments\\Assignment3sol\\Assignment3sol.csproj",
+      "projectUniqueName": "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
+      "projectName": "Graphics",
+      "projectPath": "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
       "packagesPath": "C:\\Users\\Sondrai\\.nuget\\packages\\",
-      "outputPath": "D:\\Skole\\DAT154\\Assignments\\Assignment3sol\\obj\\",
+      "outputPath": "D:\\Skole\\DAT154\\Assignments\\Graphics\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Sondrai\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -78,6 +78,9 @@
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
+          },
+          "Microsoft.WindowsDesktop.App.WPF": {
+            "privateAssets": "none"
           }
         },
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.101\\RuntimeIdentifierGraph.json"

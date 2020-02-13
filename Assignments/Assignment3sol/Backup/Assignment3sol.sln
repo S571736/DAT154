@@ -3,11 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.29728.190
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Assignment3sol", "Assignment3sol.csproj", "{E28C581E-BEF8-42ED-98B1-9E1D643F920D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Assignment3sol", "Assignment3sol.csproj", "{E28C581E-BEF8-42ED-98B1-9E1D643F920D}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SpaceObject", "..\SpaceObjects\SpaceObject.csproj", "{80990362-C9CB-44D6-8471-01E438068981}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "..\Graphics\Graphics.csproj", "{67F98D16-21E4-4061-A7BA-E9A20ECD6F20}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +21,6 @@ Global
 		{80990362-C9CB-44D6-8471-01E438068981}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{80990362-C9CB-44D6-8471-01E438068981}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{80990362-C9CB-44D6-8471-01E438068981}.Release|Any CPU.Build.0 = Release|Any CPU
-		{67F98D16-21E4-4061-A7BA-E9A20ECD6F20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{67F98D16-21E4-4061-A7BA-E9A20ECD6F20}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{67F98D16-21E4-4061-A7BA-E9A20ECD6F20}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{67F98D16-21E4-4061-A7BA-E9A20ECD6F20}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

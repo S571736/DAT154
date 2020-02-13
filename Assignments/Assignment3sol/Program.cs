@@ -100,22 +100,7 @@ class Astronomy
 
 
         Sun.satellite = allPlanets;
-        /*
-        foreach (Planet p in allPlanets)
-        {
-            foreach (Moon m in allMoons)
-            {
-                if (m.orbiting == p)
-                {
-                    p.satellite.Add(m);
-                }
-                else if (m.orbiting == pluto)
-                {
-                    pluto.satellite.Add(m);
-                }
-            }
-        }
-        */
+        
         foreach (Moon m in allMoons)
         {
             foreach (Planet s in allPlanets)
@@ -127,14 +112,13 @@ class Astronomy
             }
         }
 
-        //jupiter.Draw();
 
         String planet = Console.ReadLine();
         int simple = 0;
         
         foreach(SpaceObject o in allPlanets)
         {
-            if(o.name == planet){
+            if(o.name.ToLower() == planet.ToLower()){
                 o.Draw();
                 simple++;
             }
@@ -143,12 +127,7 @@ class Astronomy
         if(simple == 0){
             Sun.Draw();
         }
-        /*
-        foreach (SpaceObject obj in solarSystem)
-        {
-            obj.Draw();
-        }
-        */
+       
         Console.ReadLine();
     }
 }

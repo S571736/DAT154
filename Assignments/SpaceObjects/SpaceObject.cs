@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 /*
-Use coordinates of circle to find out coordinates of planets and moons in orbit
+There's alot of code commented out, this is due to me losing control of what inherited from what and so on during stages where things changed every 10 minutes. 
+If these outcommented parts are necessary I will reimplement them.
 */
 
 namespace SpaceSim
@@ -44,6 +46,7 @@ namespace SpaceSim
             x = 0;
             y = 0;
             satellite = new List<SpaceObject>();
+
         }
         public override void Draw()
         {
