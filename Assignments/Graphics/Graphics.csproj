@@ -6,4 +6,8 @@
     <UseWPF>true</UseWPF>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\SpaceObjects\SpaceObject.csproj" />
+  </ItemGroup>
+
 </Project>
