@@ -6,7 +6,9 @@
         xmlns:local="clr-namespace:Graphics"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Grid>
+    <Canvas Name="myCanvas" Background="Black">
+    <Grid Width="{Binding ActualWidth, ElementName=myCanvas}" Height="{Binding ActualHeight, ElementName=myCanvas}">
 
     </Grid>
+    </Canvas>
 </Window>

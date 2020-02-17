@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Threading;
 
 /*
 There's alot of code commented out, this is due to me losing control of what inherited from what and so on during stages where things changed every 10 minutes. 
@@ -42,7 +43,7 @@ namespace SpaceSim
         {
             radius = _radius;
             rotPeriod = _rotPeriod;
-            color = _color;
+           color = _color;
             x = 0;
             y = 0;
             satellite = new List<SpaceObject>();
@@ -63,14 +64,17 @@ namespace SpaceSim
                 }
             }
         }
+
+        
     }
 
     public class Planet : Star
     {
+        
         public SpaceObject orbiting { get; protected set; } // What object this object is orbiting
         public int orbPeriod; // Orbital period (Length of year) TODO: Implement
-        public int orbRadius { get; protected set; } // Radius of orbit
-        public int orbSpeed { get; protected set; } // Speed of orbit
+        public int orbRadius { get; set; } // Radius of orbit
+        public double orbSpeed { get; protected set; } // Speed of orbit
 
         public Planet(String _name, int _radius, int _rotPeriod, String _color, int _orbRadius, int _orbPeriod, SpaceObject _orbiting) : base(_name, _radius, _rotPeriod, _color)
         {
@@ -79,28 +83,19 @@ namespace SpaceSim
             orbPeriod = _orbPeriod;
             x = _orbRadius;
             y = 0;
-            orbSpeed = OSC / orbPeriod;
+            orbSpeed = (double)OSC / orbPeriod;
             satellite = new List<SpaceObject>();
 
         }
 
         public virtual void position(int time)
         {
-            x = orbiting.x + orbRadius + (int)(Math.Cos(time * orbSpeed * 3.1416 / 180) * orbRadius);
-            y = orbiting.y + orbRadius + (int)(Math.Sin(time * orbSpeed * 3.1416 / 180) * orbRadius);
+            x = (int)(Math.Cos(time * orbSpeed * 3.1416 / 180) * orbRadius);
+            y = (int)(Math.Sin(time * orbSpeed * 3.1416 / 180) * orbRadius);
         }
         public override void Draw()
         {
             base.Draw();
-            /*
-            Console.Write("Planet: ");
-            base.Draw();
-            Console.WriteLine("Moons: ");
-            foreach (Moon item in satellite)
-            {
-                Console.WriteLine("   *" + item.name);
-            }
-            */
         }
     }
 
