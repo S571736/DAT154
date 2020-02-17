@@ -12,3 +12,17 @@ C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3
 C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.csproj.CopyComplete
 C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.dll
 C:\Users\Sondr\Documents\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.pdb
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.exe
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.deps.json
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.runtimeconfig.json
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.runtimeconfig.dev.json
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.dll
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\Assignment3sol.pdb
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\SpaceObjects.dll
+D:\Skole\DAT154\Assignments\Assignment3sol\bin\Debug\netcoreapp3.1\SpaceObjects.pdb
+D:\Skole\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.csprojAssemblyReference.cache
+D:\Skole\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.AssemblyInfoInputs.cache
+D:\Skole\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.AssemblyInfo.cs
+D:\Skole\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.csproj.CopyComplete
+D:\Skole\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.dll
+D:\Skole\DAT154\Assignments\Assignment3sol\obj\Debug\netcoreapp3.1\Assignment3sol.pdb

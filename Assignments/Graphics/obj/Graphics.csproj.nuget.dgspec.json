@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\Graphics.csproj": {}
+    "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\Graphics.csproj": {
+    "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
+        "projectUniqueName": "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
         "projectName": "Graphics",
-        "projectPath": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
-        "packagesPath": "C:\\Users\\Sondr\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\obj\\",
+        "projectPath": "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
+        "packagesPath": "C:\\Users\\Sondrai\\.nuget\\packages\\",
+        "outputPath": "D:\\Skole\\DAT154\\Assignments\\Graphics\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sondr\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Sondrai\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -27,8 +27,8 @@
         "frameworks": {
           "netcoreapp3.1": {
             "projectReferences": {
-              "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj": {
-                "projectPath": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj"
+              "D:\\Skole\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj": {
+                "projectPath": "D:\\Skole\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj"
               }
             }
           }
@@ -63,12 +63,12 @@
         }
       }
     },
-    "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj": {
+    "D:\\Skole\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj",
+        "projectUniqueName": "D:\\Skole\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj",
         "projectName": "SpaceObject",
-        "projectPath": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj"
+        "projectPath": "D:\\Skole\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj"
       },
       "frameworks": {
         "net461": {}

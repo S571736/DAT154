@@ -26,6 +26,7 @@ namespace Graphics
         private DispatcherTimer t;
         int time = 0;
         public event delg moveIt;
+        private Star Sun;
         public MainWindow()
         {
             InitializeComponent();
@@ -33,12 +34,13 @@ namespace Graphics
             Width = SystemParameters.PrimaryScreenWidth;
             Height = SystemParameters.PrimaryScreenHeight;
 
+            Sun = createSolarSystem();
             t = new DispatcherTimer();
             t.Interval = new TimeSpan(2000);
             t.Tick += t_Tick;
             t.Start();
             moveIt += run;
-            
+
 
 
         }
@@ -59,7 +61,7 @@ namespace Graphics
             Planet uranus = new Planet("Uranus", 10, 500, "Green", 2870990, 30685, Sun);
             Planet neptune = new Planet("Neptune", 10, 500, "Blue", 4504300, 60190, Sun);
             DwarfPlanet pluto = new DwarfPlanet("Pluto", 10, 500, "Gray", 5913520, 90550, Sun);
-            
+
             List<SpaceObject> allPlanets = new List<SpaceObject> { mercury, venus, earth, mars, jupiter, saturn, uranus, neptune, pluto };
 
             Moon moon = new Moon("Moon", 1, 0, "Gray", 384, 27, earth);
@@ -143,22 +145,8 @@ namespace Graphics
 
         void run(int time)
         {
-            ClearCanvasInfo();
-            Star Sun = new Star("Sun", 50, 0, "Red");
+            //ClearCanvasInfo();
 
-            var (allPlanets, allMoons) = makePlanets(Sun);
-
-            Sun.satellite = allPlanets;
-            foreach (Moon m in allMoons)
-            {
-                foreach (Planet s in allPlanets)
-                {
-                    if (m.orbiting.name == s.name)
-                    {
-                        s.satellite.Add(m);
-                    }
-                }
-            }
 
             Ellipse sol = new Ellipse();
             SolidColorBrush scb = (SolidColorBrush)new BrushConverter().ConvertFromString(Sun.color);
@@ -171,79 +159,69 @@ namespace Graphics
             Canvas.SetLeft(sol, nullW - Sun.radius);
             Canvas.SetTop(sol, nullH - Sun.radius);
 
-            t.Tick += (object sender, EventArgs e) =>
+            myCanvas.Children.Clear();
+            myCanvas.Children.Add(sol);
+
+            double mX = (myCanvas.RenderSize.Width / 2);
+            double mY = (myCanvas.RenderSize.Height / 2);
+            foreach (Planet p in Sun.satellite)
             {
-                myCanvas.Children.Clear();
-                myCanvas.Children.Add(sol);
+                Ellipse s = new Ellipse();
+                scb = (SolidColorBrush)new BrushConverter().ConvertFromString(p.color);
+                s.Fill = scb;
+                s.Width = p.radius * 2;
+                s.Height = p.radius * 2;
 
-                double mX = (myCanvas.RenderSize.Width / 2);
-                double mY = (myCanvas.RenderSize.Height / 2);
-                foreach (Planet p in Sun.satellite)
+                int tempCount = 1;
+
+
+                double currentx = nullW + p.x / (400 * (Math.Pow(tempCount, 2)));
+                double currenty = nullH + p.y / (400 * (Math.Pow(tempCount, 2)));
+
+                tempCount++;
+
+                Canvas.SetLeft(s, currentx);
+                Canvas.SetTop(s, currenty);
+
+                myCanvas.Children.Add(s);
+
+                foreach (Moon m in p.satellite)
                 {
-                    Ellipse s = new Ellipse();
-                    scb = (SolidColorBrush)new BrushConverter().ConvertFromString(p.color);
-                    s.Fill = scb;
-                    s.Width = p.radius * 2;
-                    s.Height = p.radius * 2;
+                    Ellipse em = new Ellipse();
+                    scb = new SolidColorBrush();
+                    var c = (Color)ColorConverter.ConvertFromString(m.color);
+                    scb.Color = c;
+                    em.Fill = scb;
+                    em.Width = m.radius * 2;
+                    em.Height = m.radius * 2;
 
-                    int tempCount = 1;
-                    
-                    
-                    double orbRad = p.orbRadius / (400 * (Math.Pow(tempCount, 2)));
-                    p.orbRadius = (int)orbRad;
+                    Canvas.SetLeft(em, m.x / (400 * (Math.Pow(tempCount, 2))) + currentx);
+                    Canvas.SetTop(em, m.y / (400 * (Math.Pow(tempCount, 2))) + currenty);
 
-
-                    
-                    double currentx = nullW + p.x / (400 * (Math.Pow(tempCount, 2)));
-                    double currenty = nullH + p.y / (400 * (Math.Pow(tempCount, 2)));
-                    
-
-                    //double nullWP = nullW + p.x - p.radius - p.orbRadius;
-                    //double nullHP = nullH + p.y - p.radius - p.orbRadius;
-
-                    tempCount++;
-
-                    Canvas.SetLeft(s, currentx);
-                    Canvas.SetTop(s, currenty);
-
-                    myCanvas.Children.Add(s);
-
-                    foreach (Moon m in p.satellite)
-                    {
-                        Ellipse em = new Ellipse();
-                        scb = new SolidColorBrush();
-                        var c = (Color)ColorConverter.ConvertFromString(m.color);
-                        scb.Color = c;
-                        em.Fill = scb;
-                        em.Width = m.radius * 2;
-                        em.Height = m.radius * 2;
-
-                        Canvas.SetLeft(em, m.x / (400 * (Math.Pow(tempCount, 2))) + currentx);
-                        Canvas.SetTop(em, m.y / (400 * (Math.Pow(tempCount, 2))) + currenty);
-
-                        myCanvas.Children.Add(em);
-
-
-                    }
+                    myCanvas.Children.Add(em);
 
 
                 }
-            };
 
-            foreach(Planet sObj in Sun.satellite)
+
+            }
+
+            foreach (Planet sObj in Sun.satellite)
             {
                 moveIt += sObj.position;
 
-                foreach(Moon moon in sObj.satellite)
+                foreach (Moon moon in sObj.satellite)
                 {
                     moveIt += moon.position;
                 }
             }
+
+
         }
 
         void ClearCanvasInfo()
         {
-            for(int i = myCanvas.Children.Count -1; i >= 0; i+= -1)
+            for (int i = myCanvas.Children.Count - 1; i >= 0; i += -1)
             {
                 UIElement Child = myCanvas.Children[i];
                 if (Child is Ellipse)
@@ -251,6 +229,27 @@ namespace Graphics
             }
         }
 
+        Star createSolarSystem()
+        {
+            var Sun = new Star("Sun", 50, 0, "Red");
 
+            var (allPlanets, allMoons) = makePlanets(Sun);
+
+            Sun.satellite = allPlanets;
+
+
+            foreach (Moon m in allMoons)
+            {
+                foreach (Planet s in allPlanets)
+                {
+                    if (m.orbiting.name == s.name)
+                    {
+                        s.satellite.Add(m);
+                    }
+                }
+            }
+
+            return Sun;
+        }
     }
 }
