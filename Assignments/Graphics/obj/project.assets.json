@@ -26,19 +26,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Sondrai\\.nuget\\packages\\": {}
+    "C:\\Users\\Sondr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
+      "projectUniqueName": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
       "projectName": "Graphics",
-      "projectPath": "D:\\Skole\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
-      "packagesPath": "C:\\Users\\Sondrai\\.nuget\\packages\\",
-      "outputPath": "D:\\Skole\\DAT154\\Assignments\\Graphics\\obj\\",
+      "projectPath": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\Graphics.csproj",
+      "packagesPath": "C:\\Users\\Sondr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\Graphics\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\Sondrai\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Sondr\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -51,8 +51,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Skole\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj": {
-              "projectPath": "D:\\Skole\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj"
+            "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj": {
+              "projectPath": "C:\\Users\\Sondr\\Documents\\DAT154\\Assignments\\SpaceObjects\\SpaceObject.csproj"
             }
           }
         }

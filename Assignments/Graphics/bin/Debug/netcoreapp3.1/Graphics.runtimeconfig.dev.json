@@ -1,8 +1,8 @@
 {
   "runtimeOptions": {
     "additionalProbingPaths": [
-      "C:\\Users\\Sondrai\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Sondrai\\.nuget\\packages"
+      "C:\\Users\\Sondr\\.dotnet\\store\\|arch|\\|tfm|",
+      "C:\\Users\\Sondr\\.nuget\\packages"
     ]
   }
 }
