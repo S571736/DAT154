@@ -431,3 +431,60 @@ namespace IEnumerable
 * While normal expressions return a value, a lambda expressoin will return a method
 * This is particularly useful when designing anonymous methods to use with delegates/events
 * Lambda expressions allow us to bring functional programming into .NET
+
+### Defining Lambda Expression
+* A lambda expression has these elements
+  * A list of parameters
+  * The ``=>`` operator
+  * The method body (Or a simple expression)
+* ``(param) => {body;}``
+
+### Expression/Statement Lambda
+* Lambda statements are divided into expression and statement lambdas
+  * An expression lambda is a one line statement, without brackets. The result of the expression is used as the return value.
+  * A Statement lambda contains a body in brackets, needed if the lambda is multiline. An explicit return statement is used to return a value.
+* Note that the term lambda expression still refers to both types
+
+### Using lambda expressions
+* Lambda expressions are pointers to functions
+  * Not immediately evaluated
+* Normally stored in a delegate
+  * Custom defined delegate
+  * ``Func<in T1, ..., in Tn, out T>``
+  * ``Action<in T1, ..., in Tn>``
+
+### Sample lambda expressions
+* ``x => x*x``
+* ``x => {return x*x;}``
+* ``() => timer.start()``
+* ``(x,y) => {x += y; return x/y;}``
+* ``(int x) = x/2``
+
+### Out of scope variables
+* A lambda expression can refer to a variable that is no longer in scope when the function is called
+  * The expression will still have access to this variable
+  * The variable will only be garbage collected when the delegate holding the lambda collected
+
+### Dynamic program flow
+* Lambda expressions are great for controlling program flow
+* They can be created in one part of the applications and passed to another
+* This allows for more dynamic control of a program flow at runtime
+
+### Parallel LINQ (PLINQ)
+* Many LINQ operations benefits from being run in parallel
+* This allows the computer to put multiple threads at work processing the data
+* Just start the LINQ chain with a call to ``AsParallel()``
+* Not all data/operations can be optimized for parallel processing
+* Beware thread safety
+* Many configuration options (parallelism, ordering, custom partitioning, etc)
+
+### Parallel Execution
+* Parallel for loops:
+  * Allows us to do multiple loop iterations in parallel instead of one by one sequentially
+  * ``Parallel.For(int, int, Action<int>)``
+  * ``Parallel.ForEach(IEnumerable<t>, Action<t>)``
+* Parallel delegates:
+  * ``Parallel.Invoke(Action[])``
+  * Note: Operates on an array of delegatesm does not parallelize each individual delegate
+### Asynchronous Processing
+* Running a method asynchronous 
