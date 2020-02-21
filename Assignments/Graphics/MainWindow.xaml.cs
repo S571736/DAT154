@@ -41,7 +41,11 @@ namespace Graphics
             t.Start();
             moveIt += run;
 
-
+            /*
+             * TODO
+             * Flytte ting som selve tegningen av objektene inn i main og deretter bruke dictionary eller anna kobling til selve elementet for å 
+             * oppdatere posisisjon
+             */
 
         }
         void t_Tick(object sender, EventArgs e)

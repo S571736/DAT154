@@ -384,3 +384,50 @@ namespace IEnumerable
 * Testing adn debugging is done using the built in webserver in Visual Studio
 * You can use breakpoints and watches just as with a local applicaiton
 * Note that the browser might time out during a debugging session. This doesn't affect the debugging session itself, but you would not get any new data
+
+### Microsoft MVC
+* Based on ASP.NET
+* Uses the familiar Model-View-Controller pattern
+  * Seperates data from logic from presentation
+* Uses Razor for creating dynamic html pages
+  * Code blocks and inline expressions are indicated by @
+  * Code blocks can be C# or VB
+* Uses routing to determine which controller and method will handle a request
+  * Decoupled, easy to add additional functionality
+
+### WebAPI
+* ADO.NET API for making restful webservices
+  * REST(Representational State Transfer) is an architectural style
+    * Based on stateless operation
+    * Decoupled architecture
+    * Not limited to a fixed data format, but JSON is often used
+    * URI's contain resource identification
+    * BASED on HTTP, uses HTTP verbs
+* Built on top of the Microsoft MVC web platform
+* Serves data in the format requested by the client(XML or JSON, for HTML use MVC)
+  * Marshalled automatically
+
+### Universal Windows Platform(UWP)
+* Platform built on top of the WIndows Runtime(WinRT)
+* Designed to run on all modern Windows devices:
+  * Windows 10
+  * Xbox
+  * Surface Hub
+  * Hololens
+  * Windows Phone/Mobile
+* Can be developed in C#/VB/C++/JavaScript
+* Does not have to be .NET
+* Does not support the full .NET ecosystem
+* Not intended for non-Windows OS
+  * Use Xamarin
+* Distributed bia Microsoft Store
+  * Also sideload support
+* UI options similar to WPF
+* Secure Execution
+* Limited support for ADO.NET
+* Optimized for touch scenarios
+
+### Lambda Expressions
+* While normal expressions return a value, a lambda expressoin will return a method
+* This is particularly useful when designing anonymous methods to use with delegates/events
+* Lambda expressions allow us to bring functional programming into .NET
