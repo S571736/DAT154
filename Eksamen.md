@@ -113,7 +113,7 @@ Before the source code is compiled, it gets automatically processed due to the p
 
 ### File, compiling and linking
 
-In C++ the code files are first made into pure machine code by the COMPILER(cl). These are called object files. 
+In C++ the code files are first made into pure machine code by the COMPILER(cl). These are called object files.
 
 Then the linker binds and links the object files together and makes a real program
 
@@ -162,6 +162,7 @@ class A
   }
 }
 ````
+
 Example to see how the Constructor and Destructor are calles
 
 ````C++
@@ -250,17 +251,17 @@ p = &y;
 cout <<"*p= " << *p << endl;// *p=30
 `````
 
-
 * Struktur
 
 ## SDK
 
 ### Struktur
-  * Main method(WinMain)
-  * Code to register a windows class
-  * Code to create a main window of that class
-  * A message that loops **IMPORTANT**
-  * A window procedure attached to the main window. **IMPORTANT**, Where all the ``WM_``commands is located
+
+* Main method(WinMain)
+* Code to register a windows class
+* Code to create a main window of that class
+* A message that loops **IMPORTANT**
+* A window procedure attached to the main window. **IMPORTANT**, Where all the ``WM_``commands is located
   
 * An SDK project contains several important files/filetypes:
   * *.h: Regular C++ header files
@@ -277,26 +278,32 @@ cout <<"*p= " << *p << endl;// *p=30
     * Use the Visual Studio Resource Editor
 * Dialoger
   * A dialog is used for input of data to the program or for just giving information to the user.
-    * 1. Create the dialog in the resource editor
-    * 2. Write a window procedure for the dialog 
-    * 3. Show the dialog:
+     1. Create the dialog in the resource editor
+     2. Write a window procedure for the dialog
+     3. Show the dialog:
+
 ````C++
 LRESULT DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){}  
 DialogBox(hInst, MAKEINTRESOURCE (IDD_DIALOG1), hWnd, DlgProc);
 ````
+
 * Dialog Windows Messages
   * ``WM_INITDIALOG``
     * Sent when the dialog is created. All dialog initialization code should be called from here(ex: Setting default values in controls)
   * ``WM_COMMAND``
     * Sent whenever an event occurs on controls in the dialog, like clicking a button, selecting a menu item, etc.
     * Get the triggering control with ``LOWORD(wParam)``
-* Grafikk
-  * Device Contexts
-  * GDI-Objekter
-  * Virtuelle device contexts/kopiering
-  * Animasjon
-* Funksjonspekere
-* Tråder
+
+### Grafikk
+
+* Device Contexts
+* GDI-Objekter
+* Virtuelle device contexts/kopiering
+* Animasjon
+
+### Funksjonspekere
+
+### Tråder
 
 ## .Net
 
@@ -313,38 +320,195 @@ DialogBox(hInst, MAKEINTRESOURCE (IDD_DIALOG1), hWnd, DlgProc);
   * All .NET applications are compiled to CIL instead of native machine code
     * Similar concept as Java bytecode
 
+### Managed Code
+
+* Managed Code is code that targets the CLR
+* Code that does not target the CLR(old DLL's, API calls, etc) is unmanaged code
+* Managed code is handled by the CLR, that provides
+  * Security checks/constraints
+  * Memory Management/Garbage Collection
+  * Access to managed data
+
 * Typer
+
 ### Assemblies/metadata
 
 * A .NET assembly is an executable (.exe) or library (.netmodule) that requires the CLR to run
 * Such a file contains code compiled MSIL in addition to code, it also contains metadata(ildasm.exe)
 * Similar to a Java .jar file
+* Contains metadata which describes the interface. These data may be read by a browser, for example the class browser in Visual Studio, or more important the compiler during the build process when multiple assemblies are involved.
+* Must be run under a CLR
+* Is portable(To any system with a CLR)
 
-* Navnerom/referanser
-* FCL (Framwork Class Library)
-* Biblioteker
-* Grafiske grensesnitt
-  * Windows Forms
-  * WPF
-  * Universal Apps
-  * Delgater
-* Hendelser (Events)
-  * Håndtering
-  * Typer
-* Grafikk
-  * Tegneverktøy
-  * Animasjon
-* Linq
-  * Databaser
-  * XML
-* Web
-  * ASP.NET
-  * MVC
-  * WebAPI
+### Navnerom/referanser
+
+* A class is identified by both its namespace and actual name
+* When we use a class, we need to tell the compiler both the namespace and the name of the class
+
+````C#
+System.Console.Writeline("Hello World");
+Library.Book book = new Library.Book("Title");
+````
+
+* For Commonly used namespaces, we can import the namespace by using the using directive
+
+````C#
+using System;
+class ChelloWorld{
+  public static void Main(){
+    Console.WriteLine("Chello World");
+  }
+}
+````
+
+#### Some important namespaces
+
+* **System** - Fundamental and base classes, interfaces and exceptions
+* **System.Data** - Classes for accessing and managing data (from external sources)
+* **System.Drawing** - Basic GDI+ support
+* **System.Text** - String handling
+* **System.Windows** - GUI components
+
+#### Creating a namespace
+
+* A namespace is created by wrapping our class(es) in a namespace block.
+
+````C#
+namespace NS
+{
+  public class X
+  {
+    public static String HW()
+    {
+      return "Hello World NS";
+    }
+  }
+}
+````
+
+#### Nesting namespaces
+
+* Namespaces can also be nested
+
+````C#
+namespace NS1
+{
+  namespace NS2
+  {
+    public class X
+    {
+      public static void F()
+      {
+        System.Console.WriteLine("F's in the chat for guy, bois");
+      }
+
+    }
+  }
+}
+````
+
+* The ``using`` keyword does not provide access to namespaces nested below the specified level
+
+Correct: 
+
+````C#
+NS1.NS2.X.F();
+
+using NS1.NS2;
+X.F();
+````
+
+Incorrect:
+
+````C#
+using NS1;
+NS2.X.F();
+
+using NS1;
+
+X.F();
+````
+
+#### Aliases in namespaces
+
+* One can use aliases to provide a simplified name for a class or namespace
+
+````C#
+using s = System; // namespace alias
+using c = System.Console; // Class
+````
+
+#### References
+
+* References points to external libraries.
+* By default, not everything is referenced from a project
+* Might need to set up a reference to access a given namespace
+* References can be browsed in the object browser in VS
+
+#### Reference types
+
+* Reference types are stored on the heap
+* A pointer to the memory location occupied by the type is stored on the stack
+* Assigning a reference type to a new variable creates a new pointer on the stack pointing to the same object on the heap
+* Implicit inheritance from System.Object
+
+#### Value types
+
+* A value type does not point to the heap, it keeps its value on the stack
+* When assigned to a new variable, the content is copied
+* Still behaves as an Object, and has methods
+* Implicit inheritance from System.ValueType
+
+### FCL (Framwork Class Library)
+
+* The FCL is a comprehensive collection of reusable types, including classes, interfaces and data types included in the .NET framework to provide access to system functionality.
+* FCL acts as a standard library.
+* The reusable types of FCL provide a simple interface to developers due to:
+  * Their self-documenting nature
+  * Lesser learning curve to understand the framework, which expedites and optimized the development process
+  * Seamless integration of third-party components with classes in FCL
+
+### Biblioteker
+
+* .Net Library assemblies are almost identical to executable assemblies
+* They do not need a Main() method
+* To create a library, compile with ``/target:library``
+* To reference a library in an executable, compile with ``/r:libraryname.dll``
+
+### Grafiske grensesnitt
+
+* Windows Forms
+* WPF
+* Universal Apps
+* Delegater
+
+### Hendelser (Events)
+
+* Håndtering
+* Typer
+
+### Grafikk
+
+* Tegneverktøy
+* Animasjon
+
+### Linq
+
 * Databaser
-  * ADO.NET
-  * Linq
-* Lambda
+* XML
+
+### Web
+
+* ASP.NET
+* MVC
+* WebAPI
+
+### Databaser
+
+* ADO.NET
+* Linq
+
+### Lambda
 
 ### Arkitektur
 
