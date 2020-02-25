@@ -127,6 +127,8 @@ Namespaces allow us to group named entities that otherwise have global scope int
 
 ### Klasser i C++
 
+Nothing special to note compared to C# and Java. Maybe that one specifies what is public and private with the ``private:`` and ``public:`` modifiers(?).
+
 ### Konstuktører/Destruktører
 
 Constructors are as normal constructors. Can also be defined like this
@@ -251,14 +253,43 @@ cout <<"*p= " << *p << endl;// *p=30
 
 * Struktur
 
-### SDK
+## SDK
 
-* Struktur
+### Struktur
+  * Main method(WinMain)
+  * Code to register a windows class
+  * Code to create a main window of that class
+  * A message that loops **IMPORTANT**
+  * A window procedure attached to the main window. **IMPORTANT**, Where all the ``WM_``commands is located
+  
+* An SDK project contains several important files/filetypes:
+  * *.h: Regular C++ header files
+  * *.rc: Visual Studio resource files. Contains definitions for graphical resources, like dialog boxes and menus.
+  * Other resources such as bitmaps.
+  * Resource.h: Defines constants for all resources used in the project
+  * *.cpp: Regular C++ source files
 * Vindusmeldinger
   * Meldingsløkke
   * Meldingshåndtering
 * Resurser
+  * Editing resource files
+    * Can be edited by hand(normally not)
+    * Use the Visual Studio Resource Editor
 * Dialoger
+  * A dialog is used for input of data to the program or for just giving information to the user.
+    * 1. Create the dialog in the resource editor
+    * 2. Write a window procedure for the dialog 
+    * 3. Show the dialog:
+````C++
+LRESULT DlgProc(HWND hDlg, UINT message, WPARAM wParam, LPARAM lParam){}  
+DialogBox(hInst, MAKEINTRESOURCE (IDD_DIALOG1), hWnd, DlgProc);
+````
+* Dialog Windows Messages
+  * ``WM_INITDIALOG``
+    * Sent when the dialog is created. All dialog initialization code should be called from here(ex: Setting default values in controls)
+  * ``WM_COMMAND``
+    * Sent whenever an event occurs on controls in the dialog, like clicking a button, selecting a menu item, etc.
+    * Get the triggering control with ``LOWORD(wParam)``
 * Grafikk
   * Device Contexts
   * GDI-Objekter
@@ -267,12 +298,28 @@ cout <<"*p= " << *p << endl;// *p=30
 * Funksjonspekere
 * Tråder
 
-### .Net
+## .Net
 
-* Struktur
-* CLR
+* Runtime platform and development frameworkd for cross-platform applications.
+* This means you may mix C#, C++, F#, VB.NET or whatever language
+* It is composed of several components
+
+### Struktur
+
+### CLR
+
+* Common Language Runtime
+  * The CLR is a kernel that reside on top of the OS, and can execute code in a language called Common Intermediate Language(CIL)
+  * All .NET applications are compiled to CIL instead of native machine code
+    * Similar concept as Java bytecode
+
 * Typer
-* Assemblies/metadata
+### Assemblies/metadata
+
+* A .NET assembly is an executable (.exe) or library (.netmodule) that requires the CLR to run
+* Such a file contains code compiled MSIL in addition to code, it also contains metadata(ildasm.exe)
+* Similar to a Java .jar file
+
 * Navnerom/referanser
 * FCL (Framwork Class Library)
 * Biblioteker
