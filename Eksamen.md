@@ -296,12 +296,85 @@ DialogBox(hInst, MAKEINTRESOURCE (IDD_DIALOG1), hWnd, DlgProc);
 
 ### Grafikk
 
-* Device Contexts
-* GDI-Objekter
+### Device Contexts
+
+* A Device Context is a GDI object representing a drawing surface
+* It can represent a physical or virtual interface
+* Get the device contet for your applications drawing area by calling ``BeginPaint`` and pass the window handle(received with the ``WM_PAINT`` message)
+
+#### GDI-Objekter
+
+The GDI(Graphics Device Interface) contains the API for drawing text and graphics on output devices
+
+Works with the device driver to send the output to a device
+
 * Virtuelle device contexts/kopiering
 * Animasjon
 
 ### Funksjonspekere
+
+* Sometimes we need to pass a function as an argument
+* This is used quite heavily in Windows SDK
+* To do this, we create a type that can hold a pointer to a function
+* Declaring the type:
+````C++
+typedef int (*FPTYPE) (int a, int b);
+````
+* Creating functions that match the created type:
+````C++
+int sum(int a, int b) {return a + b;}
+int prod(int a, int b) {return a * b;}
+````
+
+**Example**
+````C++
+FPTYPE f = 0;
+f = sum;
+int s = f(3,4);
+f = prod;
+int p = f(3,4);
+````
+
+#### Function ponters in SDK
+* The usage is usually transparent since the type is already declared by the SDK framework
+* The most common function pointer is the window procedure
+````C++
+typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
+````
+* Used when we register the window class:
+````C++
+WNDCLASSEX wcex;
+wcex.IpfnWndProc = (WNDPROC)WndProc;
+````
+
+#### Function pointers in C++
+* Function pointers is also used in "regular" C++:
+* Example: qsort function in ``<stdlib.h>``
+````C++
+void qsort (void * base, size_t num, size_t size, int ( * pfn ) ( const void *, const void * ) );
+````
+
+* This function can sort any C++ array
+* ``pfn`` is a function pointer
+
+**Example**
+````C++
+int tab[] = {3,4,5,1,7,2,1,4,2,12};
+int cmp(const void * p1, const void * p2)
+{
+  int t1 = *((int*)p1); // Must cast from void* to int*
+  int t2 = *((int*)p2); // Must cast from void* to int*
+  return t1 - t2;
+}
+
+WCHAR s[10];
+qsort(tab, 10, sizeof(int), Cmp);
+for(int i = 0; i<10; i++)
+{
+  _itow_s(tab[i], s, 10);
+  TextOut(hdc, i*50, 100, s, wcslen(s));
+}
+````
 
 ### Tråder
 
@@ -477,10 +550,79 @@ using c = System.Console; // Class
 
 ### Grafiske grensesnitt
 
-* Windows Forms
-* WPF
+* Two Different GUi systems
+  * Windows Forms
+    * Based on GDI+("Classic" Windows)
+    * All design is reresented in language code
+  * Windows Presentation foundation'
+    * Based on DirectX
+    * All design is done in XAML, but can be modified by language code
+
+### Windows Forms
+
+* Classic Windows GUI
+* All windows and dialogs are defined using a Form
+* Created using the "Windows Forms Application"
+* Components found in the System.Windows.Forms namespace
+
+**Structure**
+* One file(``program.cs``) containing the main method for the program. Responsible for displaying the graphical form
+* One or more forms
+  * Design File(C#)
+  * Code File(C#)
+  * Resource File(RESX)
+* Zero or more supporting code files
+
+**Form**
+
+* A form normally consists of 3 files
+  * Design file: This file is maintained by VS and represents your doings in the WYSIWYG editor
+  * Code file: This file contains all your code associated with the form
+  * Resource file: This file contains resources, such as text strings and images
+* Note that this is VS convention. You can easily make a form in a single file or spread it out over hundreds if you do it manually
+
+**Components**
+* Visual Studio provides a toolbox with various components that can be dragged into the designer:
+  * Buttons
+  * Text fields
+  * Combo boxes
+  * Etc...
+* These can also easily be added and modified from code, each component is defined in a seperate class
+
+### WPF - Windows Presentation Foundation
+
+* Windows Presentation Foundation is a new way of designing graphical systems, introduced in .NET 3.0
+* Instead of designing the graphical elements using code, they are designed in an XAML(Extensible Application Markup Language) file, which uses XML syntax
+* Focuses ona dynamic layout
+* WPF is designed to remove the gap between despktop and web applications
+  * Can run in browser
+  * Can run as standalone
+* Use DirectX to remove dependency on aging GDI subsystem
+* WPF elements can be edited graphically in Visual Studio, or by editing the XAML file
+* WPF elements can also be modified at runtime using code.
+* The elements behave similar to regular Windows Forms controls
+* GUI components can be skinned using styles
+  * Somewhat similar in concept to HTML+CSS
+* WPF applications does not have a (visible) Main() method
+* Instead, an Application tag in a XAML file(usually App.xaml) defines the startup point
+* The Main() method is created behind the scenes by the compiler, as it is required for the assembly to be executable
+* Closely related to Silverlight
+  * Rich web content
+  * Windows Phone
+  * Universal Apps
+
+
 * Universal Apps
-* Delegater
+
+### Delegater
+
+* A delegate fulfills a similar role to the function pointer known from C++
+* However, a delegate can store multiple functions, which will all be called when the delegate is called
+* A delegate must be declared with a specific method signature, and can only accept methods conforming to this signature
+* Declarin a delegate is a two-step process
+   1. Declare a delegate type
+   2. Create an instance of the type
+* In this regard, a delegate is handled much like a .NET class(type) 
 
 ### Hendelser (Events)
 
