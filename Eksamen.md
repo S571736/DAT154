@@ -317,16 +317,20 @@ Works with the device driver to send the output to a device
 * This is used quite heavily in Windows SDK
 * To do this, we create a type that can hold a pointer to a function
 * Declaring the type:
+
 ````C++
 typedef int (*FPTYPE) (int a, int b);
 ````
+
 * Creating functions that match the created type:
+
 ````C++
 int sum(int a, int b) {return a + b;}
 int prod(int a, int b) {return a * b;}
 ````
 
 **Example**
+
 ````C++
 FPTYPE f = 0;
 f = sum;
@@ -336,20 +340,26 @@ int p = f(3,4);
 ````
 
 #### Function ponters in SDK
+
 * The usage is usually transparent since the type is already declared by the SDK framework
 * The most common function pointer is the window procedure
+
 ````C++
 typedef LRESULT(CALLBACK* WNDPROC)(HWND, UINT, WPARAM, LPARAM);
 ````
+
 * Used when we register the window class:
+
 ````C++
 WNDCLASSEX wcex;
 wcex.IpfnWndProc = (WNDPROC)WndProc;
 ````
 
 #### Function pointers in C++
+
 * Function pointers is also used in "regular" C++:
 * Example: qsort function in ``<stdlib.h>``
+
 ````C++
 void qsort (void * base, size_t num, size_t size, int ( * pfn ) ( const void *, const void * ) );
 ````
@@ -358,6 +368,7 @@ void qsort (void * base, size_t num, size_t size, int ( * pfn ) ( const void *, 
 * ``pfn`` is a function pointer
 
 **Example**
+
 ````C++
 int tab[] = {3,4,5,1,7,2,1,4,2,12};
 int cmp(const void * p1, const void * p2)
@@ -566,6 +577,7 @@ using c = System.Console; // Class
 * Components found in the System.Windows.Forms namespace
 
 **Structure**
+
 * One file(``program.cs``) containing the main method for the program. Responsible for displaying the graphical form
 * One or more forms
   * Design File(C#)
@@ -582,6 +594,7 @@ using c = System.Console; // Class
 * Note that this is VS convention. You can easily make a form in a single file or spread it out over hundreds if you do it manually
 
 **Components**
+
 * Visual Studio provides a toolbox with various components that can be dragged into the designer:
   * Buttons
   * Text fields
@@ -611,7 +624,6 @@ using c = System.Console; // Class
   * Windows Phone
   * Universal Apps
 
-
 * Universal Apps
 
 ### Delegater
@@ -622,17 +634,184 @@ using c = System.Console; // Class
 * Declarin a delegate is a two-step process
    1. Declare a delegate type
    2. Create an instance of the type
-* In this regard, a delegate is handled much like a .NET class(type) 
+* In this regard, a delegate is handled much like a .NET class(type)
+* Delegates are declared using the ``delegate`` keyword
 
+````C#
+delegate returntype name(parameters);
+````
+
+* A delegate can be declared at the class level, or the member level
+* Examples
+
+````C#
+delegate int calculateDelegate(int a, int b);
+public delegate void startComponents();
+````
+
+* A delegate instance can be created at member level or local level
+* The instance is created like any other variable, using the delegate name as the type
+* Example:
+
+````C#
+private calculateDelegate calculate;
+public startComponents start;
+````
+
+* For a method to be able to be assigned to the delegate, it must have the same signature as defined in the delegate
+* Any method that has this signature can be assigned
+* Multiple methods can be assigned to the delegate
+* To assign a method, use the ``+=`` syntax on the delegate instance:
+* ``calculate += plus;``
+* A method can also be removed using the ``-=`` syntax
+* If the instance hasn't been instantiated, we can either use assignment (=) or the ``new`` keyword
+
+````C#
+calculate = plus;
+calculate = new calculate(plus);
+````
+
+* When calling a delegate, it will call all methods, that has been assigned to it
+* Make sure the delegate has at least one assigned method, or a ``NullReferenceException`` will be thrown
+* Call the delegate as one would a method, supplying parameters, if any:
+
+````C#
+calculate(1,3);
+start();
+````
+
+#### Delegate simple example
+
+````C#
+delegate void delegateTest();
+class A
+{
+  public delegateTest t;
+  public A()
+  {
+    t += b;
+    t();
+  }
+
+  public void b()
+  {
+    System.Console.WriteLine("Delegate Called");
+  }
+}
+````
+
+#### Return values
+
+* Calling a delegate will return the return value from the called method
+* If the delegate has several methods attached, the return value will be from the last method in the list
+* A delegate can also be iterated to call each method individually by calling each method reference returned by calling ``GetInvocationList()`` on the delegate instance
+
+#### ``Func<T,TResult>/Action<T>``
+
+* Predefined generic delegates with up to 16 parameters are available in .NET
+* These all have a signature like ``Func<T1,T2,..Tn,TResult>`` Where T1...Tn is the return type.
+* We can instantiate these instead of declaring our own delegate
+
+* The use of Delegates allow us to create a decoupled publisher-subscriber model
+  * The service does not need to be aware or depend on the subscribers
+  * The subscribers does not need to be dependent on the details of the service
+  * One of the basics for creating modular applications
+  
 ### Hendelser (Events)
+
+* An event is a notificaiton of a change in state -> "something" happened
+* An object fires an event to notify subscribers about the change in state
+* Other objects subscribe to the events of one object to be notified when such changes occur
+* Subscribers act when they are notified, instead of being responsible for polling for changes
+* Event driven programming has been a known paradigm for a while, but .NET is one of the first to formalize this into the language itself.
+* Still, events has been around for a long time. The Windows Messages that drives the message loop in an SDK program is also events, although the handling is complicated
+* Events and delegates are closely related. To be able to create an event, we must first create a delegate
+  * Example:
+
+````C#
+public delegate void Del(Object o);
+````
+
+* We can then create an event using this delegate
+  * Example:
+
+````C#
+public event Del Evt;
+````
+
+* Subscription to events work just like delegates, use ``+=`` and ``-=``
+* Only methods that fit the delegates signature can subscribe to the event
+* Firing events is done the same way a delegate is called.
+* However, due to the formalized event syntax, an event is normally fired with a single parameter, a reference to the object that fired the event: 
+
+````C#
+event(this);
+//Or with an additional EventArgs argument
+event(this, EventArgs.Empty);
+````
 
 * Håndtering
 * Typer
 
-### Grafikk
+### Grafikk i .NET
 
-* Tegneverktøy
-* Animasjon
+* .NET supports two different GUI options for desktop applications
+  * Windows Forms
+    * Old system, closer to SDK
+    * Preferred if you need custom drawing/animation
+    * Uses GDI+
+  * Windows Presentation Foundation(WPF)
+    * New system
+    * Preferred when using a control-based GUI
+    * Much more dynamic than Windows Forms, and easier handling of multimedia
+    * Uses DirectX
+
+#### Tegneverktøy
+
+* Almost all drawing tools require a color
+* To create a color we need to use static methods from the Color class
+* The Color class also has a wide range of static members containing predefined colors
+* Use System.Colors to retrieve various system colors
+* Pens are used for drawing lines, including outlines of hollow figures
+* A Pen needs a color, and optionally, a width
+* ``Pen p = new Pen(Color.Red);``
+* Brushes are used for drawing filled surfaces
+* Just as for a pen, a brush needs a color
+* There are several types of Brushes:
+  * ``SolidBrush``: Paints in solid Color
+  * ``HatchBrush``: Paints a predefined pattern
+  * ``TextureBrush``: Paints a texture, like an image
+  * ``LinearGradientBrush``: Paints two colors blended along a gradient
+  * ``PathGradientBrush``: Paints using a complex gradient of blended colors, based on a unique path defined by the developer
+* Examples:
+
+````C#
+SolidBrush myBrush = new Solidbrush(Color.Red);
+
+HatchBrush myBrush = new HatchBrush(HatchStyle.Plaid, Color.Red, Color.Blue);
+
+TextureBrush myBrush = new TextureBrush(new Bitmap(@"C:\Windows\Web\Wallpaper\Theme1\img3.jpg"));
+````
+
+#### Animasjon
+
+* Just as with SDK, animation is handled by updating required values (like positions), then redraw the scene based on the new information
+* Calling ``Invalidate()`` will force a redraw
+* If animation is based upon a timer, you can use the ``Timer`` class
+
+#### WPF Drawing
+
+* WPF adds an abstraction level to drawing
+* Instead of drawing directly on a drawing surface, you create objects, sets their properties, and WPF will do the low level drawing for you
+* These objects can be created either in code or in XAML
+* WPF provides the following shapes
+  * Ellipse, Line, Path, Polygon, Polyline, and Rectangle
+* These shapes allow for varous properties like
+  * Line & Fill
+  * Position
+  * Size
+* Animating shapes in WPF is as simple as updating their properties. WPF itself will take care of the rest
+* If you wish to update the properties on a timer, use a ``System.Windows.Threading.DispatchTimer`` for this, as this timer properly supports the WPF application model
 
 ### Linq
 
@@ -651,6 +830,41 @@ using c = System.Console; // Class
 * Linq
 
 ### Lambda
+
+* While normal expressions return a value, a lambda expression will return a method.
+* This is particularly useful when designing anonymous methods to use with delegates/events
+* A lambda expression has these elements
+  * A list of parameters
+  * The ``=>`` operator
+  * The method body(or a simple expression)
+
+````C#
+(param) => {body;}
+````
+
+Some sample lambda expressions
+
+````C#
+x => x*x;
+x => {return x*x;}
+() => timer.start();
+(x,y) => {x += y; return x/y;}
+(int x) => x/2;
+
+// Bigger example
+
+class A
+{
+  public delegate int delg(int x);
+  public delg d;
+
+  public A()
+  {
+    d += (x) => {return x * x;};
+    Console.WriteLine(d(4));
+  }
+}
+````
 
 ### Arkitektur
 
