@@ -488,3 +488,78 @@ namespace IEnumerable
   * Note: Operates on an array of delegatesm does not parallelize each individual delegate
 ### Asynchronous Processing
 * Running a method asynchronous 
+
+
+### UI Design/UX/Universal Design
+* Note that this is a big topic
+  * We will only be looking at the surface
+* **GOAL** - Usability
+* The design should be 
+  * Easy to use by everyone
+  * Easy to understand by everyone
+    * Text should be understandable
+    * Elements should be identifiable
+    * Icons/images should be meaningful
+
+### Do your research
+* When designing a user interface, ALWAYS research your target audience and map their needs and requirements based on principples for good UI design
+* Do NOT give your own opinions much weight. An interface suited for a developer is not going to be well suited for the majority of users unless you design an IDE.
+* DO test the UI on users
+  * Mock ups is often a good start
+  * Focus groups
+* Consider getting professional help, UX is a whole field of study, not the job of a lone developer. UD is not simple either. 
+
+### Meet Expectiations
+
+* When someone use a given computer system, they have expectations
+  * Windows layout and design
+  * Control placement
+  * Key Bindings
+  * Colors
+* Comply with the standard look & feel on their platform
+* Make sure to use system colors so that the color scheme of your application follows the user settings
+* Make sure the application obeys changes to the system properties, like font size
+* If the platform supports skinning, make sure your application also uses the skins properly
+
+### Visuals
+
+* Remember that not everyone have 20/20 vision
+  * Near/far-sighted, colorbling, blind, injuries, illness.
+* By following the advice about meeting, something something
+* Use Colors with high contrast values
+* Remember color blindness
+  * Not everyone sees all colors the same way
+* Try to use standard window layout, for most programs, this means menu/toolbakr at the top, dialog buttons at the bottom, og der forsvant tekste
+
+### Content
+
+* Think about internationalization and Localization
+  * This may even impact the design (ex: right-to-left readers)
+  * Remember that texts may be longer in other languages than yours
+* Beware the use of symbols
+  * Not friendly to screen readers
+  * Culurally dependent
+  * Some symbols are taught, others are natural
+    * What's natural to you might not be to others
+  
+### Readability
+
+* Don't try to put too much detain into one page/window so on
+
+### Sensible navigation
+
+* People hav edifferent control preferences, like mouse, keyboard, touch, etc. Others have special needs
+  * Let people use their preferred equipment.
+* Make sure the navigation path trough your application is sensible
+  * TEST
+* Make navigational elements obvious
+
+### Sound, Video and visuals
+
+### Robustness
+
+* The design should be able to handle user errors gracefully, without breaking
+* User errors should not have major consequences
+  * Confirmatino
+  * Undo
+  * Autosave

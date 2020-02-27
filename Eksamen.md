@@ -750,6 +750,27 @@ event(this);
 event(this, EventArgs.Empty);
 ````
 
+#### System Events
+* While custom events can be created and handled, it is far more common to handle system events
+  * Ex: Mouse events, keyboard events
+* These events are sent to our program as a result of a Window Message
+
+* When an event fires, ALL subscribed methods will be called
+* This means that a single event may be handled by multiple methods
+* Keep an eye out for conflicts
+* One Method can also handle multiple events
+* We use the sender object to determine where the event originated
+
+#### Routed Event
+
+* WPF introduced the concept of Routed Events
+* A routed event "passes through" the hierarchy and can be picked up by any handler on the way
+* Once a handler has handled an event, it can mark it handled, which will prevent further handling of that event
+* Three types:
+  * Direct events - Will not travel through the hierarchy 
+  * Bubbling events - Starts at the source of the event, and works it way outwards towards the root
+  * Tunneling events - Starts at the root and travels inwards toward the source. They are prefixed by Preview to seperate them from other event types
+
 * Håndtering
 * Typer
 
@@ -815,6 +836,30 @@ TextureBrush myBrush = new TextureBrush(new Bitmap(@"C:\Windows\Web\Wallpaper\Th
 
 ### Linq
 
+* Language Integrated Query
+* LINQ is a Query Language designed to query in-memory data, databases, XML and other data sources
+* Similar to SQL
+* Works with all data structures implementing the IEnumerable interface
+
+#### IEnumerable
+* A collection class implementing this interface can be iterated over with a foreach statement, as well as queried by LINQ
+* Must implement the GetEnumerator method
+* GetEnumerator uses the ``yield`` keyword to return elements one by one
+* Normally done inside a (foreach) loop
+* Looks like a return statement, but does not end the method on invocation
+
+* To use LINQ, we must include ``System.Linq`` namespace
+* This adds appropriate extension methods to all classes implementing the IEnumerable interface
+* These extension methods provides functionality for running queries on the collection object
+* Some important methods
+  * Select
+  * Where
+  * OrderBy
+  * GroupBy
+  * Join
+* The arguments to the LINQ methods are pointers to functions
+* Use lambda expressions to create anonymous functions and classes for this purpose
+
 * Databaser
 * XML
 
@@ -826,7 +871,54 @@ TextureBrush myBrush = new TextureBrush(new Bitmap(@"C:\Windows\Web\Wallpaper\Th
 
 ### Databaser
 
-* ADO.NET
+### ADO.NET
+
+* ADO.NET is a .NET library that provides access to datasources such as SQL databases and XML
+* Works with LINQ to provide easy "Object-oriented" data access -> DLINQ
+* ADO.NET is found in the ``System.Data`` namespace
+* This namespace contains a series of nested namespace that might be useful depending on the features you use:
+  * Common, Odbc, OleDB, ProviderBase, Sql, SqlClient, SqlTypes
+* To connect to a database, you will need to specify a connection string. This is a semi-colon delimited string with the following fields
+  * Data Source: A reference to database server running on the local computer, or the address of a remote computer
+  * Initial Catalog: The name of the database to access
+  * Integrated Security Set to True to use the windows login credentials of the user running application
+  * User ID: The database login(username)
+  * Password: The password belonging to the login
+* The connection object manages your connection to the database
+* Call the ``Open()`` method to initialize the connection to the databe
+* Call the ``Close()`` method when you are done with the connection
+* Database connections are scarce resources. Remember to not keep it open longer than required(hint: Wrap in "using")
+* SQL statements are executed through a SqlCommand object contains two very important methods: 
+  * ``ExecuteReader()``: Executes a Select Sql query that returns a resultset
+  * ``ExecuteNonQuery()``: Executes a query that does not return a resultset(UPDATE, DELETE, INSERT)
+* Data are returned from the ``ExecuteReader()`` call in the form of a SqlDataReader object
+* This object has ``Read()`` method for advancing to the next row in the result set, and various methods(including an indexer) to retrieve the values
+
+#### ADO.NET and Entity Framework
+* When used with EF, we can treat tables as collections and rows as .NET types
+* This gives us a more natural object oriented way to manage our data
+* Needs a reference to EntityFramework
+
+#### DbContext
+* When using DLINQ we use a DbContext object instead of a SqlConnection object
+* Do not attempt to Open/Close this object. This is handled automatically by EF
+* The connection string is identical to a SqlConnection object
+
+#### Entity (Model) Classes
+* An entity class is a .net type that defines a database table in the form of a .net class
+* This class contains several attributes that identifies it as an entity class
+  * Table
+  * Column
+
+#### The ``DbSet<T>`` class
+* The ``DbSet<T>`` class is a collection of entity classes, and represents a physical table or view in your database
+* A table can be loaded from the database simply by calling the set method on the DbContext
+
+#### Using LINQ
+
+* You can use regular LINQ statements on your ``DbSet<T>`` objects just as with ordinary collection classes
+* Both the method invocation and SQL syntax forms are allowed
+
 * Linq
 
 ### Lambda
@@ -869,7 +961,34 @@ class A
 ### Arkitektur
 
 * Modulær oppbygning
-* Bruk av multiple programmeringsspråk
-* Programvarearkitektur
+
+### Bruk av multiple programmeringsspråk
+
+#### REP: Common intermediate Language
+
+* Visual Studio does not let us mix different languages in the same VS project
+* But it is possible to create different projects inside a solution, where each project uses its own language
+* It is also possible to manually assemble the .NET modules into .NET assemblies
+* All .NET code no matter the language are compiled to CIL code
+* Possible to use several different .NET languages in the same project
+* One language can use or subclass classes written in another language
+* One language can throw an exception that is caught in another language(module)
+
+#### Subclasses
+* As seen subclasses across languages
+* This is written the exact same way as you would extend a native class
+* Just remember to import the required **namespaces**(there might be implicit namespaces in the foreign language)
+
+#### Compiling
+  
+* Normally, when code is compiled with a .NET compiler, we get a standalone assembly, which contains
+  * Metadata
+  * Executable CIL code
+* Linking, as known from C++ is normally no longer done manually, but done automatically at runtime
+
+### Programvarearkitektur
+
+
+
 * Arkitekturmønstre
 * Universell utforming
