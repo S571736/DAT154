@@ -563,3 +563,51 @@ namespace IEnumerable
   * Confirmatino
   * Undo
   * Autosave
+
+### Extension methods
+* Extension methods allow us to add extra methods to an existing class without having access to the source code of the class
+* This is heavily used by LINQ, adding methods to all classes implementing IEnumerable
+* Only provides access to public properties/methods
+* Really just a smart wrapper method, but is used like a real member, preventing all the usual problems with wrappers
+* Implemented as a static method in a static class
+  * Method signature tells which Class/Interface it applies to(``this`` keyword, first parameter)
+* **Can Not**
+  * Override existing methods
+  * Access private/protected fields
+
+### LINQ to XML
+* LINQ can handle XML files as a data source
+* XML files can be bound to GUI elements
+* But
+  * XML is hierarchical - tree structure
+  * XML is something else as well
+
+
+### XElement
+* Core LINQ to XML class
+* Represent a single XML element
+
+### LINQ to XML methods
+* In LINQ to XML we work on lists(IEnumerable) of XElement (and Xattribute) objects
+* ``Load()`` Loads an XML document from file
+* ``Parse()`` Creates XML document from string
+* ``Save()`` Saves the XML document to file
+* ``Descendants()/DecendantsAndFiles()``: returns the child element of an XElement
+* ``Ancestors()``/``AncestorsAndSelf()``:
+* ``Attribute()``: returns the attribute of an XElement
+
+### Join
+* Joins can be performed across source types
+  * EX: XML to EF
+* Inner Join
+  * The join operator in LINQ perform an inner join
+    * Only returns rows ehere bot matches
+* Left/Right Outer join
+  * Returns all elements from one table an donly mattching elements from the other
+    * No LINQ operator handles outer joins by default
+    * Can be Accomplished by some clever LINQ statements
+    * Or by implementing your own extension method
+* Full outer joins
+  * Returns all rows from tables and so on
+* By default, LINQ checks to see if the two fields are equal
+* More complicated checking can be done by writing your own comparer class using IEnumerable

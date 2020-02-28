@@ -988,7 +988,222 @@ class A
 
 ### Programvarearkitektur
 
+"Software application architecture is the process of efining a structured solution that meets all of the technical and operational requirements, while optimizing common quality attributes such as performance, security and manageability" - Microsoft Applicaiton Architecture Guide, 2nd Edition
 
+#### What is Software Architecture
+* Create a design that ensures
+  * Usability
+    * Business requirements
+    * Performance
+  * Stability
+  * Maintainability
+    * Bug fixing
+    * Changing requirements
+  * Security
+* Three participants
+  * User
+  * Business
+  * System
+* Conflicts
+  * Trade-offs
+* Must identify and consider key scenarios and quality attributes
+
+#### Goal
+
+* Create an architecture that:
+  * Fulfills user requirements
+  * Reduces business risk
+  * Flexible, handles changes in technology and requirements
+
+#### Considerations
+
+* How are the different parts of the application used?
+* How does these parts interact with each other
+* What about design requirements
+
+#### Key Architecture Principles
+
+* Build to change instead of building to las
+* Model to analyze and reduce risk
+* Use models and visualizations as a communication and collaboration tool
+* Identify key engineering decisions
+* Seperations of Concerns
+* Single Responsibility Principle
+* Principle of Least Knowledge
+* Don't Repeat Yourself (DRY)
+* Minimize Upfront Design
+
+#### Design Practices
+
+* Keep design patterns consistent within each layer/module
+* Do not duplicate functionality within an application
+* Prefer composition to inheritance
+* Establish a coding style and naming convention
+* Maintain system quality using automated QA techniques
+* Consider the operation of your application
+
+#### Application Layers
+
+* Seperate the areas of concern
+* Be explicit about layer communication
+* Use abstraction between layers
+* Do not mix different types of components
+* Keep the data format consistent
+
+#### Components, Modules and Functions
+
+* A component should rely on internal details of others
+* Do not overload the functionality
+* Understand component communication
+* Keep crosscutting code abstracted from the business logic
+* Define a clear contract for components
+
+#### Key Design Considerations
+
+* Application type
+  * Mobile apps, desktop clients, web apps don't fit the same patterns
+* Deployment Strategy 
+  * Environment concern, physical seperation, communication
+* Technologies
+  * May impact possible design choices
+* Quality Attributes
+  * Security, performance, usability, testability, maintainability, scalability, ..... => Seperate from functionality
+* Crosscutting concerns
+  * Centralized solutions => Logging, security, communication
+
+
+#### Patterns
+* A pattern is a predefined solution to a common proble,
+* Patterns are found in all areas of creativity - Architecture, electronics, crafts, software design, software architecture...
+* Documented and published
+
+#### Architectural Patterns
+
+* Also referred to as Architectural Styles
+* Provides and abstract framework
+* Improves partitioning
+* Promotes design reuse
+* Provides a solution to a frequently recurring problem
+
+### Client/Server
+
+* Distributed system
+  * Both the client and the server holds part of the application
+* Clients are typically concerned about UI, while the server takes care of the business logic
+* Clients make requests, server fulfills them
+* Multiple clients may use one server
+
+#### Scenarios
+
+* Web Applications
+* Mail/messaging systems
+* Collaboration software
+* Banking systems
+* Remote database access
+  * Always?
+
+#### Advantages
+* Security
+* Centralized data access
+* Ease of maintenance
+
+#### Disadvantages
+
+* Scalability
+* Stability
+
+### Layered
+
+* Describes a division into layers (and optionally sub-layers)
+* Each layer represents a stand-alone unit
+* Groups related functionality
+* Communication between layers are structured
+* Abstractions are used to reduce coupling and promote reuse
+
+#### Scenarios
+
+* Most application beyond the scope of simple utilities
+
+
+#### Advantages
+
+* Clear seperation of concerns
+* Reusability
+* Replacability
+* Opens up deployment options
+
+
+### Message bus
+
+* A message bus architecture facilitates communications between components/services
+* Communication can be asynchronous
+* 1:1 or 1:n
+
+#### Scenarios
+* When components need to be completely unaware of each others
+* When components won't necessarily be online
+* When multiple components can services the same request
+
+#### Advantages
+
+* Asynchronous
+* Scalable
+* Low complexity
+* Loose coupling
+* Easy to replace components
+
+#### Disadvantages
+
+* Structural complexity
+  * Everything must learn how to communication with the bus
+  * The overall architecture becomes more complicated
+* Guaranteed delivery?
+* Overhead
+
+### Service-oriented architecture(SOA)
+* Functionality is provided as a set of independent autonomous services
+* Service discovery
+  * Redundancy
+  * Replacability
+* Message-based interaction
+
+#### Scenario
+
+* Large enterprise ecosystem where most services have multiple consumers
+
+#### Advantages
+
+* Abstraction
+* Discoverability
+* Interoperability
+* Scalability
+* Replacability
+* Reusability
+
+#### Disadvantages
+* Complex
+* Overhead
+
+
+### Combining styles
+
+* Most styles combine well
+  * Message bus handling communictation between layers
+  * SOA architecture where services are using a layered style
+  * SOA can implement a message bus
+* For most larger deployments, this is more a rule than option, as one style doesn't cover the complete picture alone
+
+#### Key considerations
+* Application type
+  * Mobile apps, desktop clients, web apps doesn't fit the same patterns
+* Deployment Strategy
+  * Environmental concerns, physical seperation, communication
+* Technologies
+  * May impact possible design choices
+* Quality Attributes
+  * Security, performance, usability, testability, maintainability, scalability,... => Seperate from functionality
+* Crosscutting concerns
+  * Centralized solutions => Logging, security, communication
 
 * Arkitekturmønstre
 * Universell utforming
