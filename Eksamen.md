@@ -842,6 +842,7 @@ TextureBrush myBrush = new TextureBrush(new Bitmap(@"C:\Windows\Web\Wallpaper\Th
 * Works with all data structures implementing the IEnumerable interface
 
 #### IEnumerable
+
 * A collection class implementing this interface can be iterated over with a foreach statement, as well as queried by LINQ
 * Must implement the GetEnumerator method
 * GetEnumerator uses the ``yield`` keyword to return elements one by one
@@ -865,7 +866,67 @@ TextureBrush myBrush = new TextureBrush(new Bitmap(@"C:\Windows\Web\Wallpaper\Th
 
 ### Web
 
-* ASP.NET
+### ASP.NET
+
+* ASP.NET uses .NET technology to create web applications
+* Can theoretically be written in any .NET language, but usually C# or VB.NET is used
+* Uses HTML for presentation
+
+* Web Forms
+* MVC 
+* Web API
+
+#### Web Forms
+
+* Uses similar layout to WPF applications:
+  * One presentation file(HTML 5) [*.aspx]
+  * One designer file (C#, VB.NET, ...)
+  * One code-behind file (C#, VB.NET, ...)
+* Uses familiar .NET controls
+
+#### ASP Tags
+
+* The HTML file uses special ``asp`` tags to represent .NET controls and other special elements
+* In code, these behaves just like ordinary .NET controls
+* These are processed server-side before the HTML code is sent to the client
+
+#### Testing and debugging
+* Testing and debugging is done using the built-in webserver in VS
+* You can use breakpoints and watches just as with a local application
+* Note that the browser might time out during a debug session. This doesn't affect debugging, but might affect the result displayed in the browser
+* Can debug against any browser, but IE is a bit tighter integrated
+
+#### Master Pages
+* ASP.NET web applications lets you use master pagers to easily give the same look and feel for your entire application.
+* Content from child pages is merged with the master page before sending it to the browser.
+* Each child page controls which master page to use, allowing you to have multiple such pages
+* NOT based on frames/iframes
+
+#### Database Access
+* ASP.NET supports the use of both "classic" database connections, and LINQ/EF connections
+* A data component can be bound to a LINQ data source, much like in WPF
+
+#### Accessing Form Data
+* Form data is accessed the same way as in a regular windows forms or WPF application, by accessing the properties of the controls.
+* Check the ``IsPostBack`` property to determine if this is an initial page load, or if the user have submitted form data
+
+#### Validation
+* Data input can be validated using validation controls
+* These work both client and server-side
+  * ``RequiredFieldValidator`` check that a required field has been assigned a value
+  * ``RegularExpressionValidator`` checks that the value of a field is acceptable
+  * ``RangeValidator`` ensures that the submitted value is within a given range
+
+#### AJAX
+* ASP.NET has built-in support for asynchronous requests
+* This can be used to do partial updates of a web page without reloading the entire page
+* Need a ``ScriptManager`` and an ``UpdatePanel`` component
+
+#### Web Services
+* ASP.NET supports both SOAP and REST based web services
+  * REST supports both XML and JSON
+* Uses Windows Communication Foundation(WCF) or Web API
+
 * MVC
 * WebAPI
 
@@ -895,22 +956,26 @@ TextureBrush myBrush = new TextureBrush(new Bitmap(@"C:\Windows\Web\Wallpaper\Th
 * This object has ``Read()`` method for advancing to the next row in the result set, and various methods(including an indexer) to retrieve the values
 
 #### ADO.NET and Entity Framework
+
 * When used with EF, we can treat tables as collections and rows as .NET types
 * This gives us a more natural object oriented way to manage our data
 * Needs a reference to EntityFramework
 
 #### DbContext
+
 * When using DLINQ we use a DbContext object instead of a SqlConnection object
 * Do not attempt to Open/Close this object. This is handled automatically by EF
 * The connection string is identical to a SqlConnection object
 
 #### Entity (Model) Classes
+
 * An entity class is a .net type that defines a database table in the form of a .net class
 * This class contains several attributes that identifies it as an entity class
   * Table
-  * Column
+  * Column 
 
 #### The ``DbSet<T>`` class
+
 * The ``DbSet<T>`` class is a collection of entity classes, and represents a physical table or view in your database
 * A table can be loaded from the database simply by calling the set method on the DbContext
 
@@ -920,15 +985,48 @@ TextureBrush myBrush = new TextureBrush(new Bitmap(@"C:\Windows\Web\Wallpaper\Th
 * Both the method invocation and SQL syntax forms are allowed
 
 * Linq
+#### Parallel LINQ (PLINQ)
+
+* Many LINQ operaitons benefits from being run in parallel
+* This allows the computer to put multiple threads at work processing the data
+* Just start the LINQ chain with a call to ``AsParallel()``
+* Not all data/operations can be optimized for parallel processing
+* Beware thread safety
+
+#### Parallel execution
+
+* Parallel for loops
+  * Allows us to do multiple loop iterations in parallel instead of one by one sequentially
+  * ``Parallel.For(int, int, Action<int>)``
+  * ``Parallel.ForEach(IEnumerable<t>, Action<t>)``
+* Parallel delegates:
+  * ``Parallel.Invoke(Action[])``
+  * Note: Operates on an array of delegate, does not parallelize each individual delegate
+
+#### Asynchronous Processing
+* Running a method asynchronously means it will run on it's own thread
+* Used to keep the main application responsive while heavy work is processed in the background
+  * Or if we need to wait for the results(web requests, etc)
+* Keyword ``async`` marks a method as capable of running asynchronously
+* Keyword ``await`` teels the program to wait for the result of an async request
+* Set up a ``Task`` to run a method asynchronously
 
 ### Lambda
 
 * While normal expressions return a value, a lambda expression will return a method.
+* lambda expressuibs can be used to define on-the-fly functionality that can be injected into methods that accepth them
+  * Ex: Sorting algorithms, program control
 * This is particularly useful when designing anonymous methods to use with delegates/events
 * A lambda expression has these elements
   * A list of parameters
   * The ``=>`` operator
   * The method body(or a simple expression)
+* A lambda expression can refer to a variable that is no longer in scope when the function is called
+  * The expression will still have access to this variable
+  * The variable will only be garbage collected when the delegate holding the lambda is garbage collected
+* Lambda expressions are great for controlling program flow
+* They can be created in one part of the application and passed to another
+* This allows for mroe dynamic control of program flow at runtime
 
 ````C#
 (param) => {body;}
@@ -958,9 +1056,7 @@ class A
 }
 ````
 
-### Arkitektur
-
-* Modulær oppbygning
+## Arkitektur
 
 ### Bruk av multiple programmeringsspråk
 
@@ -975,6 +1071,7 @@ class A
 * One language can throw an exception that is caught in another language(module)
 
 #### Subclasses
+
 * As seen subclasses across languages
 * This is written the exact same way as you would extend a native class
 * Just remember to import the required **namespaces**(there might be implicit namespaces in the foreign language)
@@ -1124,7 +1221,6 @@ class A
 
 * Most application beyond the scope of simple utilities
 
-
 #### Advantages
 
 * Clear seperation of concerns
@@ -1140,6 +1236,7 @@ class A
 * 1:1 or 1:n
 
 #### Scenarios
+
 * When components need to be completely unaware of each others
 * When components won't necessarily be online
 * When multiple components can services the same request
@@ -1161,6 +1258,7 @@ class A
 * Overhead
 
 ### Service-oriented architecture(SOA)
+
 * Functionality is provided as a set of independent autonomous services
 * Service discovery
   * Redundancy
@@ -1181,9 +1279,9 @@ class A
 * Reusability
 
 #### Disadvantages
+
 * Complex
 * Overhead
-
 
 ### Combining styles
 
@@ -1194,6 +1292,7 @@ class A
 * For most larger deployments, this is more a rule than option, as one style doesn't cover the complete picture alone
 
 #### Key considerations
+
 * Application type
   * Mobile apps, desktop clients, web apps doesn't fit the same patterns
 * Deployment Strategy
@@ -1206,4 +1305,164 @@ class A
   * Centralized solutions => Logging, security, communication
 
 * Arkitekturmønstre
-* Universell utforming
+
+### Universell utforming og Brukergrensesnitt
+
+#### Goal
+
+* **Goal is usability**
+* The design should be
+  * Easy to use by everyone
+  * Easy to understand by everyone
+    * Text should be understandable
+    * Elements should be identifiable
+    * Icons/images should be meaningful
+
+#### Do your research
+
+* When designing a UI, ALWAYS research your target audience and map their needs and requirements based on principles for good UI desing
+* Do NOT give your own opinions much weight. An interface suited for a developer is no going to be well suited for the majority of users unless you design an IDE
+* DO test the UI on users
+  * Mock-ups is often a good start
+  * Focus groups
+* Consider getting professional help, UX is a whole field of study, not the job of a lone dev. UD is not simple either
+
+#### Meet expectations
+
+* When someone use a given computer system, they have expectations
+  * Windows layout and design
+  * Control placements
+  * Key bindings
+  * Colors
+* Comply with the standard look & feel on their platform
+* Make sure to use system colors so that the color scheme of your application follows the user settings
+* Make sure the application obeys changes to system properties, like font size
+* If the platform supports skinning, make sure your application also uses the skins properly
+* Make sure your application doesn't break when users change system properties
+  * Fixed size dialogs may be problematic if font size is changed
+* Remember, system UI customization controls are meant to be used, assume you users do.
+
+#### Visuals
+
+* Remember that not everyone have 20/20 vision
+  * Near/far-sighted, colorblind, blind, injuries, illness
+* By following the advice about meeting expectation, your application will support user defined text sizes and colors. This handles a large percentage of the cases
+* Use colors with high contrast values
+  * Use contrast analyser
+* Remember color blindness
+  * Not everyone sees all colors the same way
+* Try to use a standard window layout, for most programs, this means meny/toolbars at the top, doalog buttons at the bottom etc...
+* Don't get fancy. That donut-shaped dialog might be cool, but it's no user-friendly
+
+#### Content
+
+* Think about Internationalization and Localization
+  * This may even impact the design(ex: right-to-left readers)
+  * Remember that texts may be longer or shorter in other languages than yours
+* Beware the use of symbols
+  * Not friendly to screen readers
+  * Culturally dependent
+  * Some symbols are thaught, other are natural
+    * What's natural to you might not be to others
+
+#### Readability
+
+* Don't try to put too much detail into one page/dialog/window
+  * To much detail only means people will overlook more of it
+  * Consider what the average user really needs
+    * Hide the rest away
+* Make sure text is as short and to the point as possible, and try to use simple language
+
+#### Sensible Navigation
+
+* People have different control preferences, like mouse, keyboard, touch, etc. Others have special needs
+  * Let people use their preferred equipment
+* Make sure the navigation path trough your application is sensible
+  * TEST
+* Make navigational elements obvious
+
+#### Sound, Video and Animation
+
+* Elements such as these can aid the user, but can just as well be a distraction or annoyance.
+* How will these work with a screenreader? A braille display? A user who just wants to get done quickly
+
+#### Robustness
+
+* The design should be able to handle user errors gracefully, without breaking
+* User errors should not have major consequences
+  * Confirmation
+  * Undo
+
+### Modulær oppbygning
+
+#### Partitioning - Modularity
+
+* Partitioning is one of the main ideas behind architectural styles in general
+* By partitioning our applications we increase the modularity of the applicatoins
+* Modules can be replaced and reused
+  * Improves code reusability
+  * Easier to maintain the applicaiotn
+  * Easier to divide responsibility between teams
+
+#### Three similar, yet distinctive patterns
+
+* Model - View - Controller (MVC)
+  * ASP.NET MVC
+* Model - View - Presenter (MVP)
+  * Web Forms, Windows Forms
+* Model - View - View Model (MVVM)
+  * WPF, UWP
+
+#### Modularity
+
+* Modularity is achieved when components can be easily seperated from each other(loose coupling)
+  * Interfaces/Abstract Classes
+  * Delegates/Function Pointers
+  * Naming Conventions/Routing
+* Hard-coded class names prevents seperation(tight coupling)
+
+#### Classic MVP(Model-View-Controller)
+
+* User interacts with View or Controller
+  * Depensd on platform. In any case, View doesn't process data
+* View
+  * Made from UI components (Html, CSS, Javascript UI, .NET controls, etc)
+  * Only responsible for displaying the data from the controller
+* Model
+  * Business logic and Data
+* Controller
+  * Processes user input
+  * Interacts with the model and passes data to the view
+  * Coordinates the view and the model
+
+* View fetches data from model(model notifies view about updates)
+* Controller reads data from model. Controller updates model
+* User sends commands to controller
+* View is viewed by the user. User sends command to the view, to be passed on to the controller.
+* Controller manages view(View forwards commands from user)
+
+#### MVP(Model-View-Presenter)
+
+* User interacts with the View only
+* There is one-to-one relationship between View and Presenter
+* Presenter does more work than an MVC controller
+* View has not reference to Model
+* Views often have no logic at all, even relaying on the presenter for formatting
+* Provides two-way communication between View and Presenter.
+* Ideals in apps where views are quite different
+* Example us: Standard Windows Forms app
+
+* Presenter fetches data from model. Presenter updates model
+* Presenter sets data in view. View passes on commands from user
+* User views View. User sends commands to view
+
+#### MVVM(Model-View-ViewModel)
+
+* User interacts with the View
+* There is many-to-one relationship between View and ViewModel - many Views can be mapped to one ViewModel
+* View has a reference to ViewModel, but View Model has no information about the View
+* Supports two-way data binding between View and ViewModel.
+
+* ViewModel references model. Model notifies VM on updates
+* View binds to properties on VM. VM notifies View on updates
+* User views the View. User sends commands to the view.
